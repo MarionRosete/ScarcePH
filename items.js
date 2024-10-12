@@ -1,83 +1,83 @@
 const items = [
     { 
         image: "./public/og2012.webp", 
-        name: 'Nike sb stefan janoski OG Venom 2012',
+        name: 'Nike Sb Stefan Janoski OG Venom 2012',
         size: '10.5us'
     },
    { 
        image: "./public/og2018.webp", 
-        name: 'Nike sb stefan janoski OG Venom 2018',
+        name: 'Nike Sb Stefan Janoski OG Venom 2018',
         size: '10.5us'
     },
     { 
-        image: "./public/flamingo.webp", 
-        name: 'Nike sb stefan janoski Vast Gray',
+        image: "./public/vastgray.png", 
+        name: 'Nike Sb Stefan Janoski Vast Gray',
         size: '10.5us'
     },
     { 
        image: "./public/slip+ summit.png", 
-        name: 'Nike sb stefan janoski Flamingo ',
+        name: 'Nike Sb Stefan Janoski Flamingo ',
         size: '10.5us'
     },
    { 
        image: "./public/blackfloral.webp", 
-        name: 'Nike sb stefan janoski Black Floral',
+        name: 'Nike Sb Stefan Janoski Black Floral',
         size: '10us'
     },
 
      { 
        image: "./public/woodgrain.webp", 
-        name: 'Nike sb stefan janoski Wood Grain',
+        name: 'Nike Sb Stefan Janoski Wood Grain',
         size: '10us'
     },
     { 
         image: "./public/rmcanvas.webp", 
-        name: 'Nike sb stefan janoski RM Canvas',
+        name: 'Nike Sb Stefan Janoski RM Canvas',
         size: '10us'
     },
      { 
        image: "./public/urbancamo.webp", 
-        name: 'Nike sb stefan janoski Urban Camo',
+        name: 'Nike Sb Stefan Janoski Urban Camo',
         size: '9.5us'
     },
     { 
        image: "./public/britishtan.webp", 
-        name: 'Nike sb stefan janoski British Tan',
+        name: 'Nike Sb Stefan Janoski British Tan',
         size: '8.5us'
     },
      { 
        image: "./public/slip+black.webp", 
-        name: 'Nike sb stefan janoski Slip+ Venom',
+        name: 'Nike Sb Stefan Janoski Slip+ Venom',
         size: '8.5us'
     },
      { 
        image: "./public/aztecblack.webp", 
-        name: 'Nike sb stefan janoski RM Black Aztec',
+        name: 'Nike Sb Stefan Janoski RM Black Aztec',
         size: '8us'
     },
      { 
        image: "./public/phantomblue.webp", 
-        name: 'Nike sb stefan janoski Obsidian Phantom Blue',
+        name: 'Nike Sb Stefan Janoski Obsidian Phantom Blue',
         size: '8us'
     },
     { 
        image: "./public/midnight.webp", 
-        name: 'Nike sb stefan janoski Midnight Green',
+        name: 'Nike Sb Stefan Janoski Midnight Green',
          size: '8us'
     },
     { 
        image: "./public/irongray.webp", 
-        name: 'Nike sb stefan janoski RM Iron Gray',
+        name: 'Nike Sb Stefan Janoski RM Iron Gray',
         size: '7.5us'
     },
     { 
        image: "./public/chron2.webp", 
-        name: 'Nike sb Chron 2',
+        name: 'Nike Sb Chron 2',
         size: '10.5us'
     },
     { 
        image: "./public/force58.webp", 
-        name: 'Nike sb Force 58',
+        name: 'Nike Sb Force 58',
         size: '9us'
     },
     { 
