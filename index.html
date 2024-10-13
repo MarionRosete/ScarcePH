@@ -6,9 +6,8 @@
     <link rel="icon" href="./public/logo.jpg"  style="border-radius: 100%;">
   <style>
     body {
-        font-family: Arial, sans-serif;
+       font-family: 'Courier New', Courier, monospace; /* Monospace font */
         background-color: white;
-        padding: 50px;
     }
 
     .shoe-list {
@@ -40,6 +39,8 @@
         gap: 10px;
         justify-items: center; 
         align-items: center;
+        height: 90vh;
+        overflow: scroll;
     }
 
     @media (min-width: 600px) {
@@ -89,29 +90,36 @@
         body {
             font-family: Arial, sans-serif;
             background-color: white;
-            padding: 20px;
+            padding: 10px;
         }
+    }
+    .headercontainer {
+        margin-left: 25px; 
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .headertxt {
+        font-weight: bold;
     }
 
 </style>
 
   </head>
   <body>
-
-    <div style="display: flex; margin: 10px;">
+    <div class="headercontainer">
+      <div class="headertxt">
+        For inquiries or orders, please message us at our Facebook page
+        <a href="https://www.facebook.com/Scarceph">Scarceᴾᴴ</a>
+      </div>
+    </div>
+    <div style="display: flex; margin: 10px">
     
       
       <div class="grid-container" id="item-container">
       </div>
      
     </div>
-     <div style="margin: 10px; padding-top: 10px;">
-        <div >
-          For Inquires and Orders, Please message us at
-          <a href="https://www.facebook.com/Scarceph">Scarceph</a>
-          
-        </div>
-      </div>
       <script type="module" src="displayitems.js"></script>
   </body>
 </html>
