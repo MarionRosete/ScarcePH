@@ -17,7 +17,7 @@ function displayItems() {
           <img src="${item.image}" alt="Dc Shoes Teknic Off White" class="responsive-image"></img>
 
                 <div class="content">
-                    <p>${item.name}</p>
+                    <a href="${item.url}" target="_blank">${item.name}</a>
                     <p>Size: ${item.size}</p>
                 </div>
             </div>
