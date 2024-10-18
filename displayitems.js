@@ -18,7 +18,7 @@ function displayItems() {
 
                 <div class="content">
                     <a href="${item.url}" target="_blank">${item.name}</a>
-                    <p>Size: ${item.size}</p>
+                    <p> Size: ${item.size}</p>
                 </div>
             </div>
         `;

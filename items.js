@@ -6,7 +6,7 @@ const items = [
         url: 'https://www.facebook.com/share/p/hRUCD5FJGi8MhCTa/'
     },
    { 
-        image: "./public/og2018.webp", 
+        image: "./public/og2018.png", 
         name: 'Nike Sb Stefan Janoski OG Venom 2018',
         size: '10.5us',
         url: 'https://www.facebook.com/share/p/ThaXUckGb4cDjNxY/'
@@ -18,7 +18,7 @@ const items = [
         url: 'https://www.facebook.com/share/p/vbDqnguXCk3HctQJ/'
     },
     { 
-        image: "./public/slip+ summit.png", 
+        image: "./public/slip+white.png", 
         name: 'Nike Sb Stefan Janoski Slip+ white',
         size: '10.5us',
         url: 'https://www.facebook.com/share/p/dPu6avKktYL8WSYH/'
@@ -43,7 +43,7 @@ const items = [
         url:'https://www.facebook.com/share/p/seeJWQchQ8WFkAxH/'
     },
     { 
-        image: "./public/rmcanvas.webp", 
+        image: "./public/rmcanvas.png", 
         name: 'Nike Sb Stefan Janoski RM Canvas',
         size: '10us',
         url: 'https://www.facebook.com/share/p/iQipxbWPt5Mt9KuY/'
@@ -72,8 +72,8 @@ const items = [
         size: '8us',
         url:'https://www.facebook.com/share/p/CwpsGmPZCJdHKzU9/'
     },
-     { 
-        image: "./public/phantomblue.webp", 
+    { 
+        image: "./public/phantomblue.png", 
         name: 'Nike Sb Stefan Janoski Obsidian Phantom Blue',
         size: '8us',
         url: 'https://www.facebook.com/share/p/zaNyRw9TtKEEsZfD/'
@@ -97,25 +97,25 @@ const items = [
         url:'https://www.facebook.com/share/p/7ZE8tMdPgkXW8Ld6/'
     },
     { 
-       image: "./public/force58.webp", 
+       image: "./public/force58.png", 
         name: 'Nike Sb Force 58',
         size: '9us',
         url:'https://www.facebook.com/Scarceph/posts/pfbid08Qdwt8yBRJhdzg8FyLv92kpM1X87bMm1YDR2N3YFH8wSEqfWFxTDo2y1SQFLVAHzl'
     },
     { 
-        image: "./public/af1.webp", 
+        image: "./public/af1.png", 
         name: 'Nike Air Force 1 FlyEase',
         size: '10.5us',
         url: 'https://www.facebook.com/share/p/dg8mYxXqL52J6jx4/'
     },
     { 
-        image: "./public/vansslip.webp", 
+        image: "./public/vanslip.png", 
         name: 'Vans Classic Slip',
         size: '8us, 10us',
         url: 'https://www.facebook.com/share/p/pJhH3rmWALWLWXZm/'
     },
     { 
-        image: "./public/dcslip.jpg", 
+        image: "./public/dcslip.png", 
         name: 'DC Suede slip',
         size: '10.5us',
         url: 'https://www.facebook.com/share/p/DjSiifPPvXvgtzbz/'
