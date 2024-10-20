@@ -1,32 +1,49 @@
-import items from './items.js'; // Import the items array
+import items from './items.js'; 
 
-function displayItems() {
-    console.log('items', items);
-    
+function displayItems(filteredItems) {
     const container = document.getElementById('item-container');
+    container.innerHTML = ''; 
 
-    // Loop through each item in the array
-    items.forEach(item => {
-        // Create a div for each item
+    filteredItems.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'grid-item';
 
-        // Add content to the div, including the image
         itemDiv.innerHTML = `
             <div class="shoe-item">
-          <img src="${item.image}" alt="Dc Shoes Teknic Off White" class="responsive-image"></img>
-
+                <img src="${item.image}" alt="${item.name}" class="responsive-image"></img>
                 <div class="content">
                     <a href="${item.url}" target="_blank">${item.name}</a>
-                    <p> Size: ${item.size}</p>
+                    <p> Size: ${item.size.join(', ')}</p>
                 </div>
             </div>
         `;
 
-        // Append the div to the container
         container.appendChild(itemDiv);
     });
 }
 
+function populateSizeFilter() {
+    const sizeDropdown = document.getElementById('size-filter');
+    const sizes = new Set();
 
-displayItems()
+    items.forEach(item => {
+        item.size.forEach(size => sizes.add(size));
+    });
+
+    sizes.forEach(size => {
+        const option = document.createElement('option');
+        option.value = size;
+        option.textContent = size;
+        sizeDropdown.appendChild(option);
+    });
+}
+
+function filterItemsBySize() {
+    const selectedSize = document.getElementById('size-filter').value;
+    const filteredItems = items.filter(item => item.size.includes(selectedSize) || selectedSize === 'all');
+    displayItems(filteredItems);
+}
+
+populateSizeFilter();
+document.getElementById('size-filter').addEventListener('change', filterItemsBySize);
+displayItems(items);

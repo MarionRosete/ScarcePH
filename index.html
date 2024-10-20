@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scarceᴾᴴ</title>
     <link rel="icon" href="./public/logo.jpg"  style="border-radius: 100%;">
-  <style>
+    <style>
     body {
        font-family: 'Courier New', Courier, monospace; /* Monospace font */
         background-color: black;
@@ -43,6 +43,9 @@
         align-items: center;
         height: 85vh;
         overflow: scroll;
+        align-items: start; 
+        max-height: 85vh; 
+        overflow-y: auto; 
     }
 
     @media (min-width: 600px) {
@@ -83,7 +86,6 @@
         object-fit: cover; 
     }
 
-    /* Responsive font size for mobile */
     @media (max-width: 600px) {
         body {
             font-family: Arial, sans-serif;
@@ -91,14 +93,14 @@
             padding: 10px;
         }
         .shoe-item {
-            height: 200px;
+            height: 180px;
             padding: 10px; 
             font-size: 0.60rem;
         }
     }
     .headercontainer {
         margin-left: 25px; 
-        margin-bottom: 30px;
+        /* margin-bottom: 30px; */
         margin-top: 30px;
     }
 
@@ -116,7 +118,27 @@
         color: lightgray; 
     }
 
-</style>
+
+    .filter-container {
+        display: flex; 
+        justify-content: right; 
+        margin-right: 40px;
+    }
+
+    select {
+        background-color: black;
+        color: white;
+        border: 1px solid #ccc;
+        padding: 4px;
+        border-radius: 4px;
+        font-size: 11px;
+    }
+    option {
+        color: #000; 
+        background-color: black; 
+    }
+
+    </style>
 
   </head>
   <body>
@@ -125,9 +147,13 @@
         <a href="https://www.facebook.com/Scarceph" target="_blank">Scarceᴾᴴ</a>
       </div>
     </div>
+    <div class="filter-container">
+        <select id="size-filter">
+            <option value="all">All Sizes</option>
+        </select>
+    </div>
+
     <div style="display: flex; margin: 10px">
-    
-      
       <div class="grid-container" id="item-container">
       </div>
      
