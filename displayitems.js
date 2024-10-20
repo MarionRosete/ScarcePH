@@ -12,7 +12,7 @@ function displayItems(filteredItems) {
             <div class="shoe-item">
                 <img src="${item.image}" alt="${item.name}" class="responsive-image"></img>
                 <div class="content">
-                    <a href="${item.url}" target="_blank">${item.name}</a>
+                    <a href="${item.url}">${item.name}</a>
                     <p> Size: ${item.size.join(', ')}</p>
                 </div>
             </div>
