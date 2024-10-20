@@ -1,11 +1,17 @@
 const items = [
     { 
+        image: "./public/lightbone.webp", 
+        name: 'Nike Sb Stefan Janoski Light Bone 2011',
+        size: ['11'],
+        url: 'https://www.facebook.com/share/p/hRUCD5FJGi8MhCTa/'
+    },
+    { 
         image: "./public/og2012.webp", 
         name: 'Nike Sb Stefan Janoski OG Venom 2012',
         size: ['10.5'],
         url: 'https://www.facebook.com/share/p/hRUCD5FJGi8MhCTa/'
     },
-   { 
+    { 
         image: "./public/og2018.png", 
         name: 'Nike Sb Stefan Janoski OG Venom 2018',
         size: ['10.5'],
