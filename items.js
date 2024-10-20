@@ -3,7 +3,7 @@ const items = [
         image: "./public/lightbone.webp", 
         name: 'Nike Sb Stefan Janoski Light Bone 2011',
         size: ['11'],
-        url: 'https://www.facebook.com/share/p/hRUCD5FJGi8MhCTa/'
+        url: 'https://www.facebook.com/share/p/1JpYGRMmNkSBAQ6M/'
     },
     { 
         image: "./public/og2012.webp", 
