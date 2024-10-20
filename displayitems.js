@@ -29,11 +29,15 @@ function populateSizeFilter() {
     items.forEach(item => {
         item.size.forEach(size => sizes.add(size));
     });
+    
 
-    sizes.forEach(size => {
+    const sortedSizes = Array.from(sizes).sort((a, b) => b - a);
+    
+
+    sortedSizes.forEach(size => {
         const option = document.createElement('option');
         option.value = size;
-        option.textContent = size;
+        option.textContent = size+'us';
         sizeDropdown.appendChild(option);
     });
 }
