@@ -48,6 +48,12 @@
         overflow-y: auto; 
     }
 
+    .responsive-image {
+        max-width: 100%; 
+        height: auto;    
+        padding: 15px;
+    }
+
     @media (min-width: 600px) {
         .grid-container {
             grid-template-columns: repeat(3, 1fr); 
@@ -58,13 +64,12 @@
         .grid-container {
             grid-template-columns: repeat(4, 1fr); 
         }
+        .responsive-image {
+            max-width: 75%; 
+        }
     }
 
-    .responsive-image {
-        max-width: 70%; 
-        height: auto;    
-        padding: 15px;
-    }
+   
 
     .logo {
         font-size: 100px;
