@@ -1,4 +1,6 @@
 import axios from "axios";
+import type { ApiErrorResponse } from "@/types/api";
+
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/",
@@ -15,7 +17,25 @@ api.interceptors.request.use(
         }
         return config;
     },
-    (error) => Promise.reject(error)
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error: unknown) => {
+    if (axios.isAxiosError<ApiErrorResponse>(error)) {
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        "Request failed";
+
+      return Promise.reject(new Error(message));
+    }
+
+    return Promise.reject(new Error("Unexpected error occurred"));
+  }
 );
 
 export default api;
