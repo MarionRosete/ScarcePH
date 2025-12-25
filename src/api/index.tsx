@@ -13,4 +13,13 @@ LoginAPI(email: string, password: string) {
     }
 }
 
-export { LoginAPI };
+async function CheckToken() {
+    try {
+        const response = await api.get("/auth/validate");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export { LoginAPI, CheckToken };

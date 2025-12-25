@@ -9,10 +9,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
-import { toast } from "sonner"
-import { LoginAPI } from "@/api";
+import { useAuth } from "@/context/AuthContext";
 
 function LoginPage() {
+    const { login } = useAuth();
+
+
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -21,15 +23,7 @@ function LoginPage() {
     const handleSubmit = async(e: React.FormEvent) => {
         e.preventDefault();
         setData({ ...data, is_loading: true });
-        try {
-            const response = await LoginAPI(data.email, data.password);
-            localStorage.setItem("token", response.token);
-            toast.success("Login successful");
-        } catch (error) {
-            toast.error(
-                error instanceof Error ? error.message : "Login failed"
-            );
-        }
+        await login({ email: data.email, password: data.password });
         setData({ ...data, is_loading: false });
     }
     return (
@@ -46,11 +40,11 @@ function LoginPage() {
                         <FieldGroup>
                             <Field>
                                 <FieldLabel htmlFor="name">Email</FieldLabel>
-                                <Input id="name" autoComplete="off" placeholder="your email" />
+                                <Input id="name" autoComplete="off" placeholder="your email" onChange={(e) => setData({...data, email: e.target.value})} />
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                                <Input id="password" autoComplete="off"  type="password" placeholder="your password"/>
+                                <Input id="password" autoComplete="off"  type="password" placeholder="your password" onChange={(e) => setData({...data, password: e.target.value})}/>
                             </Field>
                             <Field orientation="horizontal">
                             </Field>

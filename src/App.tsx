@@ -1,15 +1,22 @@
-import { ComponentExample } from "@/components/component-example";
 import { ThemeProvider } from "./components/theme-provide";
-import LoginPage from "./pages/login";
 import { Toaster } from "@/components/ui/sonner"
+import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter} from "react-router";
+import LazyRoutes from "./routes";
 
 export function App() {
     return (
+       
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            
-            <LoginPage />
-            <Toaster/>
+            <AuthProvider>
+                <BrowserRouter>
+                    <LazyRoutes/>
+                </BrowserRouter>
+            </AuthProvider>
+            <Toaster position="top-right" richColors />
         </ThemeProvider>
+       
+       
     );
 }
 export default App
