@@ -10,6 +10,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 
 interface Customer{
@@ -85,18 +96,41 @@ function OpenAction({name, address, phone, payment_ss}:Customer){
                     <div className="max-h-60 overflow-scroll">
                     <img src={payment_ss}/>
                     </div>
-                    <div className="mt-3 grid grid-cols-2 gap-x-3">
-                        <Button variant={"default"}>
-                            Confirm
-                        </Button>
-                        <Button variant={"outline"}>
-                            Cancel
-                        </Button>
-                    </div>
+                      
+                        <Confirmation/>
                 </div>
                 </div>
                 </PopoverContent>
             </Popover>
+    )
+}
+
+function Confirmation(){
+    return(
+        <AlertDialog>
+        <AlertDialogTrigger asChild>
+            <div className="mt-3 grid grid-cols-2 gap-x-3">
+                <Button variant={"default"}>
+                    Confirm
+                    </Button>
+                <Button variant={"destructive"}>
+                    Reject
+                </Button>
+            </div>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+                This action cannot be undone.
+            </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+        </AlertDialog>
     )
 }
 
