@@ -22,4 +22,13 @@ async function CheckToken() {
     }
 }
 
-export { LoginAPI, CheckToken };
+async function GetALLPendingOrder(){
+    try {
+        const response = await api.get("/orders/get-all-pending")
+        return response.data
+    } catch (error) {
+        throw error;
+    }
+}
+
+export { LoginAPI, CheckToken,GetALLPendingOrder };
