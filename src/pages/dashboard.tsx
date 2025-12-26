@@ -1,5 +1,4 @@
 import { Item } from "@/components/ui/item";
-import Orders from "./component/orders";
 import { useEffect, useState } from "react";
 import { GetALLPendingOrder } from "@/api";
 import { toast } from 'sonner';
@@ -9,6 +8,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import Orders from "./Orders";
 
 
 function Dashboard() {
@@ -17,7 +17,6 @@ function Dashboard() {
         const handleGetOrder = async() => {
             try {
                 const orders =  await GetALLPendingOrder()
-                console.log("orders",orders)
                 setOrders(orders)
             } catch (error) {
                 toast.error(
@@ -34,7 +33,7 @@ function Dashboard() {
             <Tabs defaultValue="orders">
                 <TabsList>
                     <TabsTrigger value="orders">Orders</TabsTrigger>
-                    <TabsTrigger value="password">Inventory</TabsTrigger>
+                    <TabsTrigger value="inventory">Inventory</TabsTrigger>
                 </TabsList>
                 <TabsContent value="orders">
                     <Orders data={orders} />
