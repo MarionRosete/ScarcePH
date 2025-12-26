@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router';
 import { useAuth } from '@/context/AuthContext';
+import LoadingScreen from '@/pages/LoadingScreen';
 
 
 export const PrivateRoute: React.FC = () => {
@@ -8,7 +9,7 @@ export const PrivateRoute: React.FC = () => {
 
 
   if (isLoading) {
-    return <div>Loading authentication status…</div>;
+    return <LoadingScreen msg={"Loading authentication status… "}/>
   }
 
  
