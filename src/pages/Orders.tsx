@@ -99,7 +99,7 @@ function Orders({ data }: OrdersProps) {
                                     </div>
                                         <ConfirmationDialog
                                             title={action.msg+" Order"}
-                                            description={action.msg=='Reject'?'This cannot be undone':''}
+                                            description={action.msg=='Reject'?'This cannot be undone. Customer will receive a notification':''}
                                             confirm={() => handleOrder({
                                                 order_id: order.id,
                                                 status: action.status,
