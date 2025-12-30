@@ -40,4 +40,15 @@ async function UpdateOrder(order_id:number, status:string, received_payment:numb
     }
 }
 
-export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder };
+async function GetAllInventory(){
+    try {
+        const response = await api.get('/inventory/get-all')
+        return response.data
+    } catch (error) {
+        throw error;
+        
+    }
+}
+
+
+export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder,GetAllInventory };
