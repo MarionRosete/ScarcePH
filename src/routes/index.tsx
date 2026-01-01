@@ -9,7 +9,7 @@ const PageNotFound = lazy(()=> import('@/pages/notfound'));
 
 export default function LazyRoutes() {
   return (
-    <Suspense fallback={<LoadingScreen msg=''/>}>
+    <Suspense fallback={<LoadingScreen msg='Page loaded'/>}>
       <Routes>
 
        
