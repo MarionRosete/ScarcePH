@@ -21,7 +21,7 @@ interface Props {
 
 export function NoDataPage({header, description, addBtn, btnName, btnClick, }:Props) {
   return (
-    <div className="w-full md:w-screen flex justify-center">
+    <div className="w-full flex justify-center">
         <Empty>
             <EmptyHeader>
                 <EmptyMedia variant="icon">

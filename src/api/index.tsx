@@ -31,6 +31,15 @@ async function GetALLPendingOrder(){
     }
 }
 
+async function GetAllOrder(){
+    try {
+        const response = await api.get('/orders/get-all-confirmed')
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
 async function UpdateOrder(order_id:number, status:string, received_payment:number){
     try {
         const response = await api.post('/orders/update-status',{order_id, status, received_payment})
@@ -51,4 +60,4 @@ async function GetAllInventory(){
 }
 
 
-export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder,GetAllInventory };
+export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder, GetAllInventory, GetAllOrder };
