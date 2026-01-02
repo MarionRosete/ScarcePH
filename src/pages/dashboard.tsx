@@ -12,6 +12,7 @@ import Inventory from "./Inventory";
 import { NoDataPage } from "./NoData";
 import PendingOrder from "./PendingOrder";
 import { Orders } from "./Orders";
+import { Separator } from "@/components/ui/separator";
 
 
 function Dashboard() {
@@ -45,15 +46,15 @@ function Dashboard() {
     },[])
     
     return (
-        <div className="p-3 h-screen w-full flex items-start">
-        <Item className="p-6 w-full overflow-scroll" variant="outline">
-            <Tabs className="w-full" defaultValue="pendingOrder">
-                <TabsList>
+        <div className="p-3 h-screen w-full flex items-start overflow-hidden">
+        <Item className="p-6 w-full h-full overflow-hidden" variant="outline">
+            <Tabs className="w-full h-full" defaultValue="pendingOrder">
+                <TabsList className="h-full">
                     <TabsTrigger value="pendingOrder">Orders</TabsTrigger>
                     <TabsTrigger value="inventory">Inventory</TabsTrigger>
                 </TabsList>
-                <TabsContent value="pendingOrder">
-                    <div className=" space-y-6">
+                <TabsContent className="h-full" value="pendingOrder">
+                    <div className="space-y-6 h-full overflow-scroll">
                         {pendingOrder.length?
                             <PendingOrder data={pendingOrder}/>
                             : 
@@ -67,14 +68,18 @@ function Dashboard() {
                             />
                         }
                         <div className="w-full over-flow-scroll">
-                            <hr className="h-1 w-full my-4 bg-neutral-800 border-0 rounded-sm md:my-10"/>
+                            <Separator/>
                             <Orders
                                 data={orders}
                             />
                         </div>
                     </div>
                 </TabsContent>
-                 <TabsContent value="inventory">
+                 <TabsContent className="h-full" value="inventory">
+                        <h4 className="mt-4 mb-4 text-sm leading-none font-medium">
+                            Inventory
+                        </h4>
+                    <div className="h-[86%] overflow-scroll">
                     {inventory.length?
                         <Inventory data={inventory}/>
                     :
@@ -87,6 +92,7 @@ function Dashboard() {
 
                         />
                     }
+                    </div>
                  </TabsContent>
             </Tabs>
         </Item>

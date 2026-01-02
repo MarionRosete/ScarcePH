@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
   Item,
   ItemContent,
@@ -23,32 +24,60 @@ interface InventoryProps {
     data: InventoryObj[];
 }
 
+function variant(status:string){
+    if(status == 'onhand')
+        return "secondary"
+    if(status == "preorder")
+        return "outline"
+    return "destructive"
+}
+
 function Inventory({data}:InventoryProps){
     return(
-        <div className="flex w-full flex-col gap-6 mt-6">
-            <h4 className="text-sm leading-none font-medium">
-                Inventory
-            </h4>
+        <div className="flex w-full flex-col ">
+        
             <div className="flex flex-col md:flex-row gap-6">
                 <ItemGroup className="grid grid-cols-2 md:grid-cols-6 gap-5">
-                {data.map((inv,idx)=>
-                   
-               
-                <Item key={idx} variant="outline">
-                    <ItemHeader>
-                        <img
-                            src={inv.variations[0].image}
-                            alt={inv.name}
-                            width={128}
-                            height={128}
-                            className="aspect-square w-full rounded-sm object-cover"
-                        />
-                    </ItemHeader>
-                    <ItemContent >
-                            <ItemTitle>{inv.name}</ItemTitle>
-                    </ItemContent>
-                </Item>
-                 )}
+                {data.flatMap((inv) =>
+                inv.variations.map((variation, vIdx) => (
+                    <Item
+                        key={`${inv.name}-${vIdx}`}
+                        variant="outline"
+                    >
+                        <div className="flex w-full justify-end">
+                            <Badge
+                            variant={variant(variation.status)}
+                            className="text-xs"
+                            >
+                                {variation.status}
+                            </Badge>
+                        </div>
+
+                        <ItemHeader>
+                            <img
+                                src={variation.image}
+                                alt={`${inv.name} ${variation.size}`}
+                                className="aspect-square w-full rounded-sm object-cover"
+                            />
+                        </ItemHeader>
+
+                        <ItemContent>
+                            <ItemTitle className="text-xs">
+                                {inv.name}
+                            </ItemTitle>
+
+                            <div className="text-xs text-muted-foreground">
+                                {variation.condition} · Size {variation.size}
+                            </div>
+
+                            <div className="mt-1 text-xs font-medium">
+                                ₱{variation.price}
+                            </div>
+                        </ItemContent>
+                    </Item>
+                ))
+)}
+
                  </ItemGroup>
             </div>
         </div>

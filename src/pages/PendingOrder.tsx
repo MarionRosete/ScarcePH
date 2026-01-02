@@ -79,7 +79,7 @@ function PendingOrder({ data }: OrdersProps) {
             <h4 className="text-sm leading-none font-medium">Pending Orders</h4>
             <div className="flex flex-col md:flex-row gap-6">
                 {data.map((order, idx) => (
-                    <Item key={idx} size={'sm'} variant="outline">
+                    <Item key={idx} className={"max-w-xs"}size={'sm'} variant="outline">
                         <ItemContent >
                             <ItemTitle className="text-xs">{order.inventory.name}</ItemTitle>
                         </ItemContent>
