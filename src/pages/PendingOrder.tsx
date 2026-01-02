@@ -47,11 +47,18 @@ interface PaymentInput {
     receivedPayment:number
 }
 
+interface CancelInput{
+    setCancelReason:(reason:string)=>void
+    cancelReason:string
+}
+
 interface HandleOrder{
     order_id:number,
     status:string,
     received_payment:number,
+    cancel_reason:string
     setIsLoading:(loading:boolean) => void
+    setCancelReason:(reason:string)=>void
 }
 
 
@@ -64,6 +71,7 @@ interface OrdersProps {
 function PendingOrder({ data }: OrdersProps) {
     const [action, setAction] = useState({msg:'', status:''})
     const [receivedPayment, setReceivedPayment] = useState(0)
+    const [cancelReason, setCancelReason] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     return (
@@ -99,14 +107,20 @@ function PendingOrder({ data }: OrdersProps) {
                                     </div>
                                         <ConfirmationDialog
                                             title={action.msg+" Order"}
-                                            description={action.msg=='Reject'?'This cannot be undone. Customer will receive a notification':''}
+                                            description={action.msg=='Reject'?'Please state your reason for cancelling the order so the buyer is informed.':''}
                                             confirm={() => handleOrder({
                                                 order_id: order.id,
                                                 status: action.status,
                                                 received_payment: receivedPayment,
+                                                cancel_reason: cancelReason,
+                                                setCancelReason:setCancelReason,
                                                 setIsLoading: setIsLoading
                                             })}
-                                        input={action.msg=='Confirm'?<PaymentInput receivedPayment={receivedPayment} setReceivedPayment={setReceivedPayment}/>:<></>}
+                                        input={action.msg=='Confirm'?
+                                            <PaymentInput receivedPayment={receivedPayment} setReceivedPayment={setReceivedPayment} />
+                                            :
+                                            <CancelInput cancelReason={cancelReason} setCancelReason={setCancelReason} />
+                                        }
                                         isLoading={isLoading}
                                     >
                                         <div className="mt-3 grid grid-cols-2 gap-x-3">
@@ -160,10 +174,27 @@ function PendingOrder({ data }: OrdersProps) {
     )
 }
 
-async function handleOrder({order_id, status, received_payment, setIsLoading}:HandleOrder)  {
+function CancelInput({cancelReason, setCancelReason}:CancelInput){
+    return(
+         <FieldSet className="w-full">
+            <Field>
+                <FieldLabel htmlFor="username">Cancellation reason</FieldLabel>
+                <Input
+                    onChange={(e)=>setCancelReason(e.target.value)}
+                    value={cancelReason}
+                />
+                {/* <FieldDescription>
+                    State your reason for cancellation
+                </FieldDescription> */}
+            </Field>
+        </FieldSet>
+    )
+}
+
+async function handleOrder({order_id, status, received_payment, cancel_reason, setIsLoading}:HandleOrder)  {
     setIsLoading(true)
     try {
-        const order = await UpdateOrder(order_id, status, received_payment)
+        const order = await UpdateOrder(order_id, status, received_payment, cancel_reason)
         toast.success("Order " + order.status)
     } catch (error) {
         toast.error(

@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -10,17 +9,24 @@ import {
 } from "@/components/ui/table"
 
 
-interface Invoice {
+interface Order {
   pair: string;
   customer: string;
   tracking: string;
-  balance: number
+  balance: number,
   amount: number;
-  size:string
+  size:string,
+}
+
+interface OrderObj{
+    orders: Array<Order>
+    total_balance: number,
+    total: number
+
 }
 
 interface props{
-    data: Array<Invoice>;
+    data: OrderObj
 }
 
 export function Orders({data}:props) {
@@ -40,17 +46,31 @@ export function Orders({data}:props) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data.map((order, key) => (
+                        {data.orders.map((order, key) => (
                         <TableRow key={key}>
                             <TableCell className="text-xs">{order.pair+" "+order.size}</TableCell>
                             <TableCell className="text-xs">{order.customer}</TableCell>
-                            <TableCell className="text-xs">{order.tracking}</TableCell>
+                            <TableCell className="text-xs">
+                                <a 
+                                    href={"https://parcelsapp.com/en/tracking/"+order.tracking} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                >
+                                   {order.tracking}
+                                </a>
+                            </TableCell>
                             <TableCell className="text-xs">{order.balance}</TableCell>
                             <TableCell className="text-right text-xs">{order.amount}</TableCell>
                         </TableRow>
                         ))}
                     </TableBody>
-                 
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={3}>Total</TableCell>
+                            <TableCell className="text-left">{data.total_balance}</TableCell>
+                            <TableCell className="text-right">{data.total}</TableCell>
+                        </TableRow>
+                    </TableFooter>
                 </Table>
         </div>
     )
