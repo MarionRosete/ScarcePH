@@ -17,6 +17,7 @@ interface Variation{
 interface InventoryObj {
     name:string,
     description:string
+    image:string
     variations: Variation[];
 }
 
@@ -26,9 +27,9 @@ interface InventoryProps {
 
 function variant(status:string){
     if(status == 'onhand')
-        return "secondary"
+        return "default"
     if(status == "preorder")
-        return "outline"
+        return "secondary"
     return "destructive"
 }
 
@@ -55,7 +56,7 @@ function Inventory({data}:InventoryProps){
 
                         <ItemHeader>
                             <img
-                                src={variation.image}
+                                src={inv.image}
                                 alt={`${inv.name} ${variation.size}`}
                                 className="aspect-square w-full rounded-sm object-cover"
                             />
