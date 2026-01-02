@@ -17,7 +17,11 @@ import { Orders } from "./Orders";
 function Dashboard() {
     const [pendingOrder, setPendingOrder] = useState([])
     const [inventory, setInventory] = useState([])
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState({
+        orders:[],
+        total_balance:0,
+        total:0
+    })
     
     useEffect(()=>{
         const handleGetData = async () => {
@@ -27,6 +31,7 @@ function Dashboard() {
                 const inventory =  await GetAllInventory()
                 setInventory(inventory)
                 const orders = await GetAllOrder()
+                
                 setOrders(orders)
             } catch (error) {
                 toast.error(
@@ -49,7 +54,7 @@ function Dashboard() {
                 </TabsList>
                 <TabsContent value="pendingOrder">
                     <div className=" space-y-6">
-                        {pendingOrder.length < 0?
+                        {pendingOrder.length?
                             <PendingOrder data={pendingOrder}/>
                             : 
                             <NoDataPage

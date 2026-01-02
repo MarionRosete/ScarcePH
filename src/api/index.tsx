@@ -40,9 +40,9 @@ async function GetAllOrder(){
     }
 }
 
-async function UpdateOrder(order_id:number, status:string, received_payment:number){
+async function UpdateOrder(order_id:number, status:string, received_payment:number, cancel_reason:string){
     try {
-        const response = await api.post('/orders/update-status',{order_id, status, received_payment})
+        const response = await api.post('/orders/update-status',{order_id, status, received_payment, cancel_reason})
         return response.data
     } catch (error) {
         throw error;
