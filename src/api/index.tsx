@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import api from "./setup";
 
 async function 
@@ -59,5 +60,17 @@ async function GetAllInventory(){
     }
 }
 
+async function CreatePair(name:string, description:string, image:string){
+    try {
+        const response = await api.post('/inventory/create', {name, description, image})
+        return response.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to add new pair"
+        );
+        throw error
+    }
+}
 
-export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder, GetAllInventory, GetAllOrder };
+
+export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder, GetAllInventory, GetAllOrder,CreatePair };

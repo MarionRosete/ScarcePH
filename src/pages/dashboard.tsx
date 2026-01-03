@@ -13,6 +13,9 @@ import { NoDataPage } from "./NoData";
 import PendingOrder from "./PendingOrder";
 import { Orders } from "./Orders";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { PlusCircleIcon } from "lucide-react";
+import { AddPair } from "./AddPair";
 
 
 function Dashboard() {
@@ -76,9 +79,12 @@ function Dashboard() {
                     </div>
                 </TabsContent>
                  <TabsContent className="h-full" value="inventory">
-                        <h4 className="mt-4 mb-4 text-sm leading-none font-medium">
+                    <div className="flex justify-between items-center mt-4 mb-6">
+                        <h4 className="text-sm leading-none font-medium">
                             Inventory
                         </h4>
+                        <AddPair/>
+                    </div>
                     <div className="h-[86%] overflow-scroll">
                     {inventory.length?
                         <Inventory data={inventory}/>

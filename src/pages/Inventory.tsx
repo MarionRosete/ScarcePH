@@ -55,11 +55,13 @@ function Inventory({data}:InventoryProps){
                         </div>
 
                         <ItemHeader>
+                            <div className="m-6">
                             <img
                                 src={inv.image}
                                 alt={`${inv.name} ${variation.size}`}
-                                className="aspect-square w-full rounded-sm object-cover"
+                                className="w-full rounded-sm object-fit"
                             />
+                            </div >
                         </ItemHeader>
 
                         <ItemContent>
