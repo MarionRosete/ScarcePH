@@ -1,0 +1,150 @@
+// VariationItem.tsx
+import { motion } from "framer-motion"
+import { ChevronDown, MinusCircleIcon } from "lucide-react"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { type Variation } from "../types/variations"
+import { condition, getsize } from "@/utils/inventory"
+
+type Props = {
+  data: Variation
+  index: number
+  onToggle: () => void
+  onRemove: () => void
+  onUpdate: <K extends keyof Variation>(
+    key: K,
+    value: Variation[K]
+  ) => void
+}
+
+export function VariationItem({
+  data,
+  index,
+  onToggle,
+  onRemove,
+  onUpdate,
+}: Props) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      className="overflow-hidden"
+    >
+      <Collapsible open={data.isOpen} onOpenChange={onToggle}>
+        <div className="flex justify-between items-center">
+          <CollapsibleTrigger asChild>
+            <button className="flex items-center gap-2 text-xs font-medium">
+              Variation {index + 1}
+              <motion.span
+                animate={{ rotate: data.isOpen ? 180 : 0 }}
+                className="inline-flex"
+              >
+                <ChevronDown className="h-4 w-4" />
+              </motion.span>
+            </button>
+          </CollapsibleTrigger>
+
+          <Button size="icon-xs" variant="destructive" onClick={onRemove}>
+            <MinusCircleIcon />
+          </Button>
+        </div>
+
+        <CollapsibleContent asChild forceMount>
+          <motion.div
+            animate={data.isOpen ? "open" : "closed"}
+            variants={{
+              open: { height: "auto", opacity: 1 },
+              closed: { height: 0, opacity: 0 },
+            }}
+            className="overflow-hidden"
+          >
+            <div className="grid gap-4 border p-4 rounded-md mt-2">
+                <div className="grid gap-1"> 
+                    <Label htmlFor="inv-name" className="text-xs"> Facebook post </Label> 
+                    <Input
+                        placeholder="https://www.facebook.com/share/p/1AQctcDZcj/" 
+                        required 
+                        className="text-xs h-9" 
+                        onChange={e => onUpdate("url", e.target.value)}
+                        value={data.url}
+                    /> 
+                </div> 
+
+                <div className="grid grid-cols-2 gap-4"> 
+                    <div className="grid gap-1"> 
+                        <Label htmlFor="checkout-exp-month-ts6" className="text-xs"> Condition </Label> 
+                        <Select 
+                            onValueChange={(v)=> onUpdate("condition", v)} 
+                            value={data.condition}
+                        > 
+                            <SelectTrigger> 
+                                <SelectValue placeholder="new in box" /> 
+                            </SelectTrigger> 
+                            <SelectContent className="text-xs"> 
+                                {condition.map((cond, key)=> 
+                                    <SelectItem value={cond} key={key}>{cond}</SelectItem> 
+                                )} 
+                            </SelectContent> 
+                        </Select> 
+                    </div> 
+                    <div className="grid gap-1"> 
+                        <Label htmlFor="checkout-7j9-exp-year-f59" className="text-xs"> Size </Label> 
+                        <Select 
+                            onValueChange={(v)=> onUpdate("size", v)}
+                            value={data.size}
+                        > 
+                            <SelectTrigger> 
+                                <SelectValue placeholder="10.5 us" /> 
+                            </SelectTrigger> 
+                            <SelectContent> {getsize().map((sz, key)=> 
+                                <SelectItem value={sz.toString()} key={key}> {sz} us </SelectItem> )} 
+                            </SelectContent> 
+                        </Select> 
+                    </div> 
+                </div> 
+
+                <div className="grid grid-cols-2 gap-4"> 
+                    <div className="grid gap-1">
+                        <Label htmlFor="inv-name" className="text-xs"> Price </Label> 
+                        <Input
+                            placeholder="₱7000" 
+                            required type="number" 
+                            className="text-xs h-8" 
+                            value={data.price === 0 ? "" : data.price}
+                            onChange={e => onUpdate("price", Number(e.target.value))}
+                        /> 
+                    </div> 
+                    <div className="grid gap-1"> 
+                        <Label htmlFor="inv-name" className="text-xs"> Quantity </Label> 
+                        <Input
+                            placeholder={"1"} 
+                            required 
+                            type="number" 
+                            className="text-xs h-8" 
+                           value={data.stock === 0 ? "" : data.stock}
+                            onChange={e => onUpdate("stock", Number(e.target.value))}
+                        /> 
+                    </div> 
+                </div> 
+            </div>
+          </motion.div>
+        </CollapsibleContent>
+      </Collapsible>
+    </motion.div>
+  )
+}
