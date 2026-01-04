@@ -1,46 +1,11 @@
 import { Button } from "@/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { Input } from "@/components/ui/input"
 import { Item, ItemTitle } from "@/components/ui/item"
-import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { condition, getsize } from "@/utils/inventory"
-import { MinusCircleIcon, PlusCircleIcon } from "lucide-react"
-import { useState } from "react"
-import { ChevronDown } from "lucide-react"
-import { AnimatePresence, motion } from "framer-motion"
+import { PlusCircleIcon } from "lucide-react"
+import { AnimatePresence } from "framer-motion"
 import { VariationItem } from "./VariationItem"
 import { useVariations } from "@/hooks/useVariations"
 
 
-
-type Variation = {
-  id: string
-  image: string
-  url: string
-  condition: string
-  size: string
-  price: number
-  stock: number
-  isOpen: boolean
-}
-
-const createVar = (): Variation => ({
-  id: crypto.randomUUID(),
-  image: "",
-  url: "",
-  condition: "",
-  size: "",
-  price: 0,
-  stock: 0,
-  isOpen: false,
-})
 
 export function Variations(){
     const { vars, add, remove, toggle, update } = useVariations()
