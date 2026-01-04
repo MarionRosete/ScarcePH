@@ -12,12 +12,7 @@ import { ChevronRight, PlusCircle } from "lucide-react"
 import { useState } from "react"
 
 import {
-  Field,
   FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
 } from "@/components/ui/field"
 
 import { Textarea } from "@/components/ui/textarea"
@@ -103,7 +98,7 @@ export function AddPair() {
 
     const RenderCurrentStepContent = () => {
         switch (currentStep) {
-            case 0: {
+            case 2: {
                 return <Inventory/>
             }
             case 1: {
@@ -122,7 +117,7 @@ export function AddPair() {
                 <PlusCircle/> Add Pair
             </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] overflow-hidden max-h-full">
+        <DialogContent className="sm:max-w-[425px] overflow-hidden flex flex-col  max-h-full">
             <DialogHeader>
                 <DialogTitle>{currentStep>2?"Add new pair":"Variation"}</DialogTitle>
                 <DialogDescription>

@@ -55,7 +55,7 @@ function Inventory({data}:InventoryProps){
                         </div>
 
                         <ItemHeader>
-                            <div className="m-6">
+                            <div className="m-2 md:m-6">
                             <img
                                 src={inv.image}
                                 alt={`${inv.name} ${variation.size}`}
