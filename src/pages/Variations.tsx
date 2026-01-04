@@ -4,24 +4,28 @@ import { PlusCircleIcon } from "lucide-react"
 import { AnimatePresence } from "framer-motion"
 import { VariationItem } from "./VariationItem"
 import { useVariations } from "@/hooks/useVariations"
+import type { VariationsProps } from "@/types/variations"
 
 
 
-export function Variations(){
-    const { vars, add, remove, toggle, update } = useVariations()
-
-
+export function Variations({pair}: VariationsProps){
+    const { vars, add, remove, toggle, update, submit } = useVariations(pair.id)
+    
+    
+    console.log('Variants', vars)
     return(
         <div >
             <Item className="flex justify-center flex-col">
                 <div>
                 <img
                     className="w-25 md:w-50 rounded-sm object-fit"
-                    src="https://marionrosete.github.io/ScarcePH/public/static/TIFFANY.PNG"
+                    src={pair.image}
+                    // src="https://marionrosete.github.io/ScarcePH/public/static/CAPPUCCINO.PNG"
                 />
                 </div>
                 <ItemTitle className="text-xs">
-                    Nike sb stefan janoski og venom
+                    {pair.name}
+                    {/* Nike sb stefan janoski OG */}
                 </ItemTitle>
             </Item>
             <div className="flex justify-end mb-2">
@@ -29,7 +33,7 @@ export function Variations(){
                     <PlusCircleIcon/>
                 </Button>
             </div>
-            <div className="w-full overflow-scroll max-h-80 space-y-2">
+            <div className="w-full overflow-scroll max-h-90 space-y-2">
                 <AnimatePresence>
                     {vars.map((v, i) => (
                     <VariationItem
@@ -44,7 +48,7 @@ export function Variations(){
                 </AnimatePresence>
             </div>
             <div className="mt-2 flex justify-center">
-                <Button variant='outline' >
+                <Button variant='outline' onClick={submit}>
                     Confirm
                 </Button>
             </div>

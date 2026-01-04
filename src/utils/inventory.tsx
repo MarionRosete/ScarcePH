@@ -22,3 +22,9 @@ export const condition = [
     'used in box',
     'used no box'
 ]
+
+export const status = [
+    'onhand',
+    'preorder',
+    'sold'
+]

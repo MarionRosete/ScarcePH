@@ -6,10 +6,12 @@ export interface Variation {
   size: string
   price: number
   stock: number
-  isOpen: boolean
+  isOpen: boolean,
+  inventory_id:number,
+  status:string,
 }
 
-export const createVariation = (): Variation => ({
+export const createVariation = (pair_id:number): Variation => ({
   id: crypto.randomUUID(),
   image: "",
   url: "",
@@ -18,4 +20,24 @@ export const createVariation = (): Variation => ({
   price: 0,
   stock: 0,
   isOpen: false,
+  inventory_id:pair_id,
+  status:''
 })
+
+type PairSummary = {
+  id: number
+  name: string
+  image: string
+}
+
+export type VariationsProps = {
+  pair: PairSummary
+}
+
+
+export type InventoryData = {
+  id: number
+  name: string
+  description: string
+  image: string
+}

@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { type Variation } from "../types/variations"
-import { condition, getsize } from "@/utils/inventory"
+import { condition, getsize, status } from "@/utils/inventory"
 
 type Props = {
   data: Variation
@@ -87,12 +87,12 @@ export function VariationItem({
 
                 <div className="grid grid-cols-2 gap-4"> 
                     <div className="grid gap-1"> 
-                        <Label htmlFor="checkout-exp-month-ts6" className="text-xs"> Condition </Label> 
+                        <Label className="text-xs"> Condition </Label> 
                         <Select 
                             onValueChange={(v)=> onUpdate("condition", v)} 
                             value={data.condition}
                         > 
-                            <SelectTrigger> 
+                            <SelectTrigger className="text-xs w-full"> 
                                 <SelectValue placeholder="new in box" /> 
                             </SelectTrigger> 
                             <SelectContent className="text-xs"> 
@@ -101,14 +101,15 @@ export function VariationItem({
                                 )} 
                             </SelectContent> 
                         </Select> 
-                    </div> 
+                    </div>
+                 
                     <div className="grid gap-1"> 
                         <Label htmlFor="checkout-7j9-exp-year-f59" className="text-xs"> Size </Label> 
                         <Select 
                             onValueChange={(v)=> onUpdate("size", v)}
                             value={data.size}
                         > 
-                            <SelectTrigger> 
+                            <SelectTrigger className="text-xs w-full"> 
                                 <SelectValue placeholder="10.5 us" /> 
                             </SelectTrigger> 
                             <SelectContent> {getsize().map((sz, key)=> 
@@ -118,13 +119,30 @@ export function VariationItem({
                     </div> 
                 </div> 
 
-                <div className="grid grid-cols-2 gap-4"> 
-                    <div className="grid gap-1">
+                <div className="grid grid-cols-3 gap-4"> 
+                    <div className="grid gap-1 "> 
+                        <Label className="text-xs"> Status </Label> 
+                        <Select 
+                            onValueChange={(v)=> onUpdate("status", v)} 
+                            value={data.status}
+                            
+                        > 
+                            <SelectTrigger className="text-xs "> 
+                                <SelectValue placeholder="onhand" className="text-xs w-full"/> 
+                            </SelectTrigger> 
+                            <SelectContent className="text-xs"> 
+                                {status.map((cond, key)=> 
+                                    <SelectItem value={cond} key={key}>{cond}</SelectItem> 
+                                )} 
+                            </SelectContent> 
+                        </Select> 
+                    </div> 
+                    <div className="grid gap-1 ml-2">
                         <Label htmlFor="inv-name" className="text-xs"> Price </Label> 
                         <Input
                             placeholder="₱7000" 
                             required type="number" 
-                            className="text-xs h-8" 
+                            className="text-xs w-full" 
                             value={data.price === 0 ? "" : data.price}
                             onChange={e => onUpdate("price", Number(e.target.value))}
                         /> 
@@ -135,7 +153,7 @@ export function VariationItem({
                             placeholder={"1"} 
                             required 
                             type="number" 
-                            className="text-xs h-8" 
+                            className="text-xs w-full"  
                            value={data.stock === 0 ? "" : data.stock}
                             onChange={e => onUpdate("stock", Number(e.target.value))}
                         /> 
