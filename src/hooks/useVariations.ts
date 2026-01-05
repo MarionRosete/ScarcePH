@@ -1,11 +1,10 @@
 import { useState } from "react"
-import { createVariation, type Variation } from "../types/variations"
+import { createVariation, type VariationObj } from "../types/variations"
 import { CreateVariation } from "@/api"
-import { toast } from "sonner"
 
 
 export function useVariations(pair_id:number) {
-  const [vars, setVars] = useState<Variation[]>([createVariation(pair_id)])
+  const [vars, setVars] = useState<VariationObj[]>([createVariation(pair_id)])
 
   const add = () =>
     setVars(v => [
@@ -28,10 +27,10 @@ export function useVariations(pair_id:number) {
       )
     )
 
-  const update = <K extends keyof Variation>(
+  const update = <K extends keyof VariationObj>(
     index: number,
     key: K,
-    value: Variation[K]
+    value: VariationObj[K]
   ) =>
     setVars(v =>
       v.map((x, i) =>
@@ -40,13 +39,16 @@ export function useVariations(pair_id:number) {
     )
 
   const submit = async () => {
-    vars.map(({ id, isOpen, ...payload },key)=>{
-      CreateVariation(key,payload)
-      
-    })
+    const variations = vars.map(({isOpen, ...payload })=>payload)
+    const var_id = vars[0].id
+    await CreateVariation(var_id, variations)
+  }
+
+  const addVariations =(variations:VariationObj[]) => {
+    setVars(variations)
   }
     
 
 
-  return { vars, add, remove, toggle, update,submit }
+  return { vars, add, remove, toggle, update,submit,addVariations }
 }

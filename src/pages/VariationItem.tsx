@@ -16,17 +16,17 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { type Variation } from "../types/variations"
+import { type VariationObj } from "../types/variations"
 import { condition, getsize, status } from "@/utils/inventory"
 
 type Props = {
-  data: Variation
+  data: VariationObj
   index: number
   onToggle: () => void
   onRemove: () => void
-  onUpdate: <K extends keyof Variation>(
+  onUpdate: <K extends keyof VariationObj>(
     key: K,
-    value: Variation[K]
+    value: VariationObj[K]
   ) => void
 }
 
@@ -66,6 +66,7 @@ export function VariationItem({
 
         <CollapsibleContent asChild forceMount>
           <motion.div
+            initial={false}
             animate={data.isOpen ? "open" : "closed"}
             variants={{
               open: { height: "auto", opacity: 1 },

@@ -1,5 +1,5 @@
-export interface Variation {
-  id: string
+export interface VariationObj {
+  id: number
   image: string
   url: string
   condition: string
@@ -11,8 +11,8 @@ export interface Variation {
   status:string,
 }
 
-export const createVariation = (pair_id:number): Variation => ({
-  id: crypto.randomUUID(),
+export const createVariation = (pair_id:number): VariationObj => ({
+  id: 0,
   image: "",
   url: "",
   condition: "",
@@ -27,11 +27,12 @@ export const createVariation = (pair_id:number): Variation => ({
 type PairSummary = {
   id: number
   name: string
-  image: string
+  image: string,
+  variation:VariationObj[]
 }
 
 export type VariationsProps = {
-  pair: PairSummary
+  pair: PairSummary,
 }
 
 

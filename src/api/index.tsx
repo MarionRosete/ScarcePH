@@ -74,12 +74,13 @@ async function CreatePair(name:string, description:string, image:string){
     }
 }
 
-async function CreateVariation(key:number,payload:VariationParams){
-    console.log({...payload});
+async function CreateVariation(inventory_id:number, variations:VariationParams[]){
     
     try {
-        const response = await api.post('/inventory/create-variation',{...payload})
-        toast.success('Variation '+key+' Created')
+        const response = await api.post('/inventory/create-variation',{inventory_id, variations})
+        if(response.data){
+            toast.success(response.data.message)
+        }
         return response.data
     } catch (error) {
         toast.error(

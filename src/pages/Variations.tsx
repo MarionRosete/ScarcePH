@@ -5,14 +5,18 @@ import { AnimatePresence } from "framer-motion"
 import { VariationItem } from "./VariationItem"
 import { useVariations } from "@/hooks/useVariations"
 import type { VariationsProps } from "@/types/variations"
+import { useEffect } from "react"
 
 
 
 export function Variations({pair}: VariationsProps){
-    const { vars, add, remove, toggle, update, submit } = useVariations(pair.id)
+    const { vars, add, remove, toggle, update, submit, addVariations} = useVariations(pair.id)
     
     
-    console.log('Variants', vars)
+    useEffect(()=>{
+        addVariations(pair.variation)
+    },[pair])
+
     return(
         <div >
             <Item className="flex justify-center flex-col">

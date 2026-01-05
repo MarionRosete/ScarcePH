@@ -10,6 +10,7 @@ export type VariationParams = {
   image: string,
   status: string,
   stock: number,
-  url:string
+  url:string,
+  id:number
 }
 

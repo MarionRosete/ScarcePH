@@ -15,7 +15,7 @@ import { Variations } from "./Variations"
 import { Progress } from "@/components/ui/progress"
 import { CreatePair } from "@/api"
 import { InventoryForm } from "./InventoryForm"
-import type { InventoryData } from "@/types/variations"
+import { createVariation, type InventoryData } from "@/types/variations"
 
 
 
@@ -73,6 +73,7 @@ export function AddPair() {
               id: inventory.id,
               name: inventory.name,
               image: inventory.image,
+              variation:[createVariation(inventory.id)]
             }}
           />
         )}
