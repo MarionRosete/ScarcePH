@@ -7,11 +7,10 @@ export interface VariationObj {
   price: number
   stock: number
   isOpen: boolean,
-  inventory_id:number,
   status:string,
 }
 
-export const createVariation = (pair_id:number): VariationObj => ({
+export const createVariation = (): VariationObj => ({
   id: 0,
   image: "",
   url: "",
@@ -20,7 +19,6 @@ export const createVariation = (pair_id:number): VariationObj => ({
   price: 0,
   stock: 0,
   isOpen: false,
-  inventory_id:pair_id,
   status:''
 })
 

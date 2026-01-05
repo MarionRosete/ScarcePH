@@ -6,8 +6,6 @@ export function getsize(){
 
     while (!sizes.includes(end)) {
         let size = start+=0.5
-        console.log('start', start)
-        console.log('size', size)
         sizes.push(size)
     }
 

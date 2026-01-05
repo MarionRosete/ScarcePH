@@ -41,7 +41,7 @@ export function Variations({pair}: VariationsProps){
                 <AnimatePresence>
                     {vars.map((v, i) => (
                     <VariationItem
-                        key={v.id}
+                        key={i}
                         data={v}
                         index={i}
                         onToggle={() => toggle(i)}

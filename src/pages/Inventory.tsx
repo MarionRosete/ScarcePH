@@ -34,8 +34,8 @@ function Inventory({data}:InventoryProps){
         
             <div className="flex flex-col md:flex-row">
                 <ItemGroup className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
-                    {data.flatMap((inv) =>
-                        <InventoryItem inv={inv}/>
+                    {data.flatMap((inv, key) =>
+                        <InventoryItem inv={inv} key={key}/>
                     )}
                  </ItemGroup>
             </div>

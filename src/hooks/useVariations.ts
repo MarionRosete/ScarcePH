@@ -4,12 +4,12 @@ import { CreateVariation } from "@/api"
 
 
 export function useVariations(pair_id:number) {
-  const [vars, setVars] = useState<VariationObj[]>([createVariation(pair_id)])
+  const [vars, setVars] = useState<VariationObj[]>([createVariation()])
 
   const add = () =>
     setVars(v => [
       ...v.map(x => ({ ...x, isOpen: false })),
-      { ...createVariation(pair_id), isOpen: true },
+      { ...createVariation(), isOpen: true },
     ])
 
   const remove = (index: number) =>
@@ -39,9 +39,15 @@ export function useVariations(pair_id:number) {
     )
 
   const submit = async () => {
-    const variations = vars.map(({isOpen, ...payload })=>payload)
-    const var_id = vars[0].id
-    await CreateVariation(var_id, variations)
+    const variations = vars.map(({ isOpen, ...payload }) => {
+      if (payload.id === 0) {
+        const { id, ...rest } = payload;
+        return rest;
+      }
+      return payload;
+    });
+    const var_id = pair_id;
+    await CreateVariation(var_id, variations);
   }
 
   const addVariations =(variations:VariationObj[]) => {
