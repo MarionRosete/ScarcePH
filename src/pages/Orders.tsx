@@ -33,8 +33,8 @@ export function Orders({data}:props) {
     console.log("order",data)
 
     return (
-        <div>
-                <h4 className="text-sm leading-none font-medium">Orders</h4>
+        <div className="gap-6 mt-6">
+            <h4 className="text-sm leading-none font-medium mb-3">Orders</h4>
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -66,9 +66,9 @@ export function Orders({data}:props) {
                     </TableBody>
                     <TableFooter>
                         <TableRow>
-                            <TableCell colSpan={3}>Total</TableCell>
-                            <TableCell className="text-left">{data.total_balance}</TableCell>
-                            <TableCell className="text-right">{data.total}</TableCell>
+                            <TableCell className="text-xs" colSpan={3}>Total</TableCell>
+                            <TableCell className="text-left text-xs">₱{data.total_balance}</TableCell>
+                            <TableCell className="text-right text-xs">₱{data.total}</TableCell>
                         </TableRow>
                     </TableFooter>
                 </Table>

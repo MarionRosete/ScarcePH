@@ -1,4 +1,6 @@
+import { toast } from "sonner";
 import api from "./setup";
+import type { VariationParams } from "@/types/api";
 
 async function 
 LoginAPI(email: string, password: string) {
@@ -59,5 +61,43 @@ async function GetAllInventory(){
     }
 }
 
+async function CreatePair(name:string, description:string, image:string){
+    try {
+        const response = await api.post('/inventory/create', {name, description, image})
+        toast.success('Successfully created pair')
+        return response.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to add new pair"
+        );
+        throw error
+    }
+}
 
-export { LoginAPI, CheckToken,GetALLPendingOrder, UpdateOrder, GetAllInventory, GetAllOrder };
+async function CreateVariation(inventory_id:number, variations:VariationParams[]){
+    
+    try {
+        const response = await api.post('/inventory/create-variation',{inventory_id, variations})
+        if(response.data){
+            toast.success(response.data.message)
+        }
+        return response.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to add new pair"
+        );
+        throw error
+    }
+}
+
+
+export { 
+    LoginAPI, 
+    CheckToken,
+    GetALLPendingOrder, 
+    UpdateOrder, 
+    GetAllInventory, 
+    GetAllOrder,
+    CreatePair,
+    CreateVariation
+};
