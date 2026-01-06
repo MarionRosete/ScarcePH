@@ -90,6 +90,30 @@ async function CreateVariation(inventory_id:number, variations:VariationParams[]
     }
 }
 
+async function GetDashboardSummary(){
+    try {
+        const response = await api.get('/dashboard/summary')
+        return response.data
+    } catch (error) {
+         toast.error(
+            error instanceof Error ? error.message : "Failed to add new pair"
+        );
+        throw error
+    }
+}
+
+async function GetBestSeller(){
+    try {
+        const response = await api.get('dashboard/bestseller')
+        return response.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to add new pair"
+        );
+        throw error
+    }
+}
+
 
 export { 
     LoginAPI, 
@@ -99,5 +123,7 @@ export {
     GetAllInventory, 
     GetAllOrder,
     CreatePair,
-    CreateVariation
+    CreateVariation,
+    GetDashboardSummary,
+    GetBestSeller
 };
