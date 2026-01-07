@@ -34,7 +34,6 @@ api.interceptors.response.use(
       const status = error.response?.status;
       if (status === 401) {
         localStorage.removeItem("token");
-        window.location.reload()
 
       }
 
