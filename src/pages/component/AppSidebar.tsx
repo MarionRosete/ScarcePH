@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { NavLink } from "react-router"
+import logo from "/image/greyed logo.png"
+
 
 // Menu items.
 const items = [
@@ -37,7 +39,8 @@ export function AppSidebar() {
       <SidebarContent className="">
         <div className="mb-6 flex items-center gap-3 rounded-xl bg-muted/50 p-3">
           <Avatar className="h-10 w-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={logo} />
+
           </Avatar>
           <div className="flex flex-col leading-tight">
             <span className="text-sm font-semibold">Admin</span>
