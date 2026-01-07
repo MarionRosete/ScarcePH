@@ -4,7 +4,7 @@ import { CreateVariation } from "@/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 
-export function useVariations(pair_id:number) {
+export const useVariations= (pair_id:number) => {
   const [vars, setVars] = useState<VariationObj[]>([createVariation()])
 
   const add = () =>

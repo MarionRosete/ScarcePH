@@ -12,3 +12,11 @@ export type VariationParams = {
   url:string,
 }
 
+export type UpdateOrderParams = {
+  order_id:number
+  status:string
+  received_payment:number
+  cancel_reason:string,
+  release:string
+}
+
