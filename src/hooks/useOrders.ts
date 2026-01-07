@@ -8,11 +8,20 @@ export const  useOrders = (status:string, order_id:number) => {
     const [received_payment, setReceivedPayment] = useState(0)
     const [cancel_reason, setCancelReason] = useState('')
     const [orderStatus, setOrderStatus] = useState('')
+    const [release, setRelease] = useState('');
 
   
 
     const addVariationsMutation = useMutation({
-        mutationFn: ({order_id, status, received_payment, cancel_reason}: UpdateOrderParams) => UpdateOrder({order_id, status, received_payment, cancel_reason}),
+        mutationFn: ({
+            order_id, 
+            status, 
+            received_payment, 
+            cancel_reason, 
+            release
+        }: UpdateOrderParams) => UpdateOrder(
+            {order_id, status, received_payment, cancel_reason, release}
+        ),
 
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["get-order", status]})
@@ -23,7 +32,7 @@ export const  useOrders = (status:string, order_id:number) => {
 
     const handleUpdateOrder=()=>{
         addVariationsMutation.mutate(
-           {order_id,status:orderStatus,received_payment,cancel_reason}
+           {order_id,status:orderStatus,received_payment,cancel_reason,release}
             
         )
     }
@@ -33,6 +42,7 @@ export const  useOrders = (status:string, order_id:number) => {
         setCancelReason, 
         setOrderStatus, 
         handleUpdateOrder, 
-        cancel_reason
+        cancel_reason,
+        setRelease
     }
 }
