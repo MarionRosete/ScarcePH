@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import api from "./setup";
-import type { VariationParams } from "@/types/api";
+import type { UpdateOrderParams, VariationParams } from "@/types/api";
 
 async function 
 LoginAPI(email: string, password: string) {
@@ -24,25 +24,18 @@ async function CheckToken() {
     }
 }
 
-async function GetALLPendingOrder(){
+async function GetOrder(status:string){
     try {
-        const response = await api.get("/orders/get-all-pending")
+        const response = await api.get("/orders/get-all?status="+status)
         return response.data
     } catch (error) {
         throw error;
     }
 }
 
-async function GetAllOrder(){
-    try {
-        const response = await api.get('/orders/get-all-confirmed')
-        return response.data
-    } catch (error) {
-        throw error
-    }
-}
 
-async function UpdateOrder(order_id:number, status:string, received_payment:number, cancel_reason:string){
+
+async function UpdateOrder({order_id, status, received_payment, cancel_reason}:UpdateOrderParams){
     try {
         const response = await api.post('/orders/update-status',{order_id, status, received_payment, cancel_reason})
         return response.data
@@ -118,12 +111,11 @@ async function GetBestSeller(){
 export { 
     LoginAPI, 
     CheckToken,
-    GetALLPendingOrder, 
     UpdateOrder, 
     GetAllInventory, 
-    GetAllOrder,
     CreatePair,
     CreateVariation,
     GetDashboardSummary,
-    GetBestSeller
+    GetBestSeller,
+    GetOrder
 };

@@ -7,6 +7,7 @@ import { deltaColor, formatPeso, pendingColor } from "@/utils/dashboard";
 import { SummaryCard } from "./component/SummaryCard";
 import { cn } from "@/lib/utils"
 import { BestSelling } from "./component/BestSelling";
+import { Link } from "react-router";
 
 function Dashboard() {
     const {
@@ -37,15 +38,18 @@ function Dashboard() {
     return (
         <div>
             <div className="m-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
-                <SummaryCard
-                    trendIcon={<></>}
-                    title="Pending Orders"
-                    icon={<ClockFadingIcon className="w-4 h-4" />}
-                    isLoading={isLoading}
-                    value={pending}
-                    valueClassName={pendingColor(pending)}
-                    subtext={pending === 0 ? "All clear" : "Needs attention"}
-                />
+                <Link  to="/orders?status=pending" className="block">
+
+                    <SummaryCard
+                        trendIcon={<></>}
+                        title="Pending Orders"
+                        icon={<ClockFadingIcon className="w-4 h-4" />}
+                        isLoading={isLoading}
+                        value={pending}
+                        valueClassName={pendingColor(pending)}
+                        subtext={pending === 0 ? "All clear" : "Needs attention"}
+                    />
+                </Link>
 
                 <SummaryCard
                     trendIcon={<></>}

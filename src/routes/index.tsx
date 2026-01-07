@@ -5,6 +5,7 @@ import { PublicRoute } from './PublicRoute';
 import Layout from '@/Layout';
 import Dashboard from '@/pages/dashboard';
 import Inventory from '@/pages/Inventory/Inventory';
+import OrderPage from '@/pages/Orders/OrderPage';
 
 const Login = lazy(() => import('@/pages/login'));
 const PageNotFound = lazy(()=> import('@/pages/notfound'));
@@ -21,7 +22,7 @@ export default function LazyRoutes() {
         <Route element={<PrivateRoute />}>
           <Route element={<Layout/>}>
             <Route path="/dashboard" element={<Dashboard/>} />
-            <Route path="/orders" element={<>orders</>}/>
+            <Route path="/orders" element={<OrderPage/>}/>
             <Route path='/pairs' element={<Inventory/>}/>
           </Route>
         </Route>
