@@ -11,15 +11,18 @@ import { PlusCircle } from "lucide-react"
 import { useState } from "react"
 
 
-import { Variations } from "./Variations"
+import { Variations } from "./Inventory/Variations"
 import { Progress } from "@/components/ui/progress"
 import { CreatePair } from "@/api"
-import { InventoryForm } from "./InventoryForm"
+import { InventoryForm } from "./Inventory/InventoryForm"
 import { createVariation, type InventoryData } from "@/types/variations"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+
 
 
 
 export function AddPair() {
+  const queryClient = useQueryClient()
   const [step, setStep] = useState<1 | 2>(1)
   const [inventory, setInventory] = useState<InventoryData>({
     id:0,
@@ -30,13 +33,29 @@ export function AddPair() {
 
   const progress = (step / 2) * 100
 
-  const handleInventorySubmit = async (data: InventoryData) => {
-    const res = await CreatePair(data.name, data.description, data.image)
-    if (!res) return
-    console.log('res', res)
-    setInventory(res.data)
-    setStep(2)
+  
+
+  const createInventory = (payload: InventoryData) => {
+    return CreatePair(
+      payload.name,
+      payload.description,
+      payload.image
+    )
   }
+  const addInventoryMutation = useMutation({
+    mutationFn: createInventory,
+      onSuccess: (res) => {
+        queryClient.invalidateQueries({ queryKey: ["inventory"] })
+        setInventory(res.data)
+        setStep(2)
+      }
+    }
+  )
+
+  const handleInventorySubmit = async (data: InventoryData) => {
+      addInventoryMutation.mutate(data)
+  }
+
 
   return (
     <Dialog>
@@ -73,7 +92,7 @@ export function AddPair() {
               id: inventory.id,
               name: inventory.name,
               image: inventory.image,
-              variation:[createVariation(inventory.id)]
+              variation:[createVariation()]
             }}
           />
         )}

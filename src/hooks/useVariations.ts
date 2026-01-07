@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { createVariation, type VariationObj } from "../types/variations"
 import { CreateVariation } from "@/api"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 
 export function useVariations(pair_id:number) {
@@ -38,16 +39,40 @@ export function useVariations(pair_id:number) {
       )
     )
 
-  const submit = async () => {
-    const variations = vars.map(({ isOpen, ...payload }) => {
+  function buildVariationPayload(vars: any[]) {
+    return vars.map(({ isOpen, ...payload }) => {
       if (payload.id === 0) {
-        const { id, ...rest } = payload;
-        return rest;
+        const { id, ...rest } = payload
+        return rest
       }
-      return payload;
-    });
-    const var_id = pair_id;
-    await CreateVariation(var_id, variations);
+      return payload
+    })
+  }
+
+  const queryClient = useQueryClient()
+
+  const addVariationsMutation = useMutation({
+    mutationFn: ({
+      pairId,
+      variations,
+    }: {
+      pairId: number
+      variations: any[]
+    }) => CreateVariation(pairId, variations),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["inventory"] })
+      queryClient.invalidateQueries({ queryKey: ["bestsellers"] })
+    },
+  })
+
+  const submit = () => {
+    const variations = buildVariationPayload(vars)
+
+    addVariationsMutation.mutate({
+      pairId:pair_id,
+      variations,
+    })
   }
 
   const addVariations =(variations:VariationObj[]) => {
