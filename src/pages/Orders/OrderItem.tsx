@@ -1,15 +1,9 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { OrderProps } from "@/types/Order";
-import ConfirmationDialog from "../component/confirmation";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { UpdateOrder } from "@/api";
-import type { UpdateOrderParams } from "@/types/api";
+import { OrderButtons } from "./ActionButton";
+
 
 export function OrderItem ({data}:OrderProps){    
     
@@ -88,96 +82,9 @@ export function OrderItem ({data}:OrderProps){
                 </div>
             </div>
             <div className="flex justify-end gap-3">
-                <ActionButton status={data.status} order_id={data.id}/>
+                <OrderButtons status={data.status} order_id={data.id}/>
             </div>
         </Card>
     )
 }
 
-function ActionButton({ status, order_id }: { status: string, order_id:number}){
-    const queryClient = useQueryClient()
-    const [received_payment, setReceivedPayment] = useState(0)
-    const [cancel_reason, setCancelReason] = useState('')
-    const [orderStatus, setOrderStatus] = useState('')
-
-  
-
-    const addVariationsMutation = useMutation({
-        mutationFn: ({order_id, status, received_payment, cancel_reason}: UpdateOrderParams) => UpdateOrder({order_id, status, received_payment, cancel_reason}),
-
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["get-order", status]})
-        },
-    })
-
-    
-
-    const handleUpdateOrder=()=>{
-        addVariationsMutation.mutate(
-           {order_id,status:orderStatus,received_payment,cancel_reason}
-            
-        )
-    }
-
-   
-    switch (status) {
-        case "pending":
-            return (
-            <>
-                <ConfirmationDialog
-                    title="Reject Order"
-                    description="NOTE: We'll message the customer for this reason"
-                    confirm={handleUpdateOrder}
-                    input={
-                        <Textarea 
-                            className="mt-2 mb-2"
-                            placeholder="Invalid payment."
-                            onChange={(e)=>setCancelReason(e.target.value)} 
-                            value={cancel_reason}
-                        />
-                    }
-                    isLoading={false}
-                    
-                >
-                    <Button size={'sm'} variant="outline" onClick={()=>setOrderStatus('cancelled')}>
-                        Reject
-                    </Button>
-                </ConfirmationDialog>
-
-                <ConfirmationDialog
-                    title="Accept order"
-                    description="Verify payment and input amount received"
-                    confirm={handleUpdateOrder}
-                    input={
-                        <Input 
-                            className="mt-2 mb-2"
-                            placeholder="₱7,500.00"
-                            type="number"
-                            onChange={(e)=>setReceivedPayment(Number(e.target.value))} 
-                        />
-                    }
-                    isLoading={false}
-                >
-                    <Button size={'sm'} onClick={()=>setOrderStatus('confirmed')}>
-                        Confirm
-                    </Button>
-                </ConfirmationDialog>
-            </>
-            )
-            break;
-        case "confirmed":
-            return (
-            <>
-                <Button size={'sm'} variant="outline">
-                    Return to sender
-                </Button>
-                <Button size={'sm'} >
-                    Mark as completed
-                </Button>
-            </>
-            )
-            break;
-        default:
-            break;
-    }
-}
