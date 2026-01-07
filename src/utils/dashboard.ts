@@ -25,6 +25,7 @@ export function formatPeso(amount: number) {
 }
 
 export function normalizePair(pair:string){
+  if(!pair) return ''
     if(pair.toLocaleLowerCase().includes('nike sb stefan janoski')){
         const pairName = pair.toLocaleLowerCase().replace("nike sb stefan janoski", "");
        return pairName.toLocaleUpperCase()
