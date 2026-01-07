@@ -1,4 +1,3 @@
-// VariationItem.tsx
 import { motion } from "framer-motion"
 import { ChevronDown, MinusCircleIcon } from "lucide-react"
 import {
@@ -16,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { type VariationObj } from "../types/variations"
+import { type VariationObj } from "@/types/variations"
 import { condition, getsize, status } from "@/utils/inventory"
 
 type Props = {

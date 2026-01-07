@@ -8,6 +8,10 @@ import {
 } from "@/components/ui/item"
 import { Variations } from "./Variations";
 import { type VariationObj } from "@/types/variations";
+import { GetAllInventory } from "@/api";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
+import { AddPair } from "../AddPair";
 
 
 interface InventoryObj {
@@ -22,21 +26,46 @@ interface InventoryItemProps{
     inv:InventoryObj
 }
 
-interface InventoryProps {
-    data: InventoryObj[];
-}
 
 
 
-function Inventory({data}:InventoryProps){
+
+function Inventory(){
+    const {
+        data,
+        isLoading,
+        isError,
+    } = useQuery<InventoryObj[]>({
+        queryFn:GetAllInventory,
+        queryKey: ["inventory"],
+        staleTime: 30 * 60_000,
+    })
+    if (isError) {
+        return (
+            <div className="m-6 text-sm text-destructive">
+                Failed to Inventory Try again later
+            </div>
+        )
+    }
     return(
-        <div className="flex w-full flex-col ">
-        
-            <div className="flex flex-col md:flex-row">
+        <div className="m-6">
+            <div className="flex justify-end mb-2">
+                <AddPair/>
+            </div>
+            <div className="flex flex-col md:flex-row max-h-[90%] overflow-scroll">
                 <ItemGroup className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
-                    {data.flatMap((inv, key) =>
-                        <InventoryItem inv={inv} key={key}/>
-                    )}
+                    {isLoading?
+                        <div>
+                            <Skeleton/>
+                            <Skeleton/>
+                            <Skeleton/>
+                            <Skeleton/>
+                        </div>
+                        :
+                        data?.flatMap((inv, key) =>
+                            <InventoryItem inv={inv} key={key}/>
+                        )
+                    }
                  </ItemGroup>
             </div>
         </div>
