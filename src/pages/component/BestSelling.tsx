@@ -5,6 +5,7 @@ import type { BestsellerItem } from "@/types/dashboard";
 import { normalizePair } from "@/utils/dashboard";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion"
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 
@@ -67,9 +68,19 @@ export function BestSelling () {
                                     <img src={pair?.image} 
                                         className="w-full rounded-sm object-fit"
                                     />
-                                    <p className="text-xs md:text-xs text-center font-light mt-2 ">
-                                        {normalizePair(pair?.inventory_name)} 
-                                    </p>
+                                 
+                                    <div className="flex items-center justify-center mt-2">
+                                        <p className="text-xs md:text-xs text-center font-light ">
+                                            {normalizePair(pair?.inventory_name)} 
+                                        </p>
+                                        <motion.span
+                                            animate={{ rotate: toggle[key].isOpen ? 180 : 0 }}
+                                            className="inline-flex"
+                                        >
+                                            <ChevronDown  className="w-4 h-4 ml-2 mr-2"/>
+                                        </motion.span>
+                                    </div>
+                                        
                                 </div>
                             </CollapsibleTrigger>
                             <CollapsibleContent asChild forceMount>
@@ -84,7 +95,7 @@ export function BestSelling () {
                             >
                                 {
                                 pair?.sizes?.map((vars)=>
-                                        <p className="text-center text-xs pt-1">
+                                        <p className="text-left text-xs pt-1">
                                            &#9679; {vars.size}us ({vars.sold_count}) ₱{Math.abs(vars.revenue)}
                                         </p>
                                     )
