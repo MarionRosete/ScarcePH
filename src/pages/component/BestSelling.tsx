@@ -77,7 +77,7 @@ export function BestSelling () {
                                             animate={{ rotate: toggle[key].isOpen ? 180 : 0 }}
                                             className="inline-flex"
                                         >
-                                            <ChevronDown  className="w-4 h-4 ml-2 mr-2"/>
+                                            <ChevronDown  className="w-4 h-4 ml-1 mr-1"/>
                                         </motion.span>
                                     </div>
                                         

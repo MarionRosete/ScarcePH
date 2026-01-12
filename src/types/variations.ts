@@ -8,6 +8,7 @@ export interface VariationObj {
   stock: number
   isOpen: boolean,
   status:string,
+  spent:number
 }
 
 export const createVariation = (): VariationObj => ({
@@ -19,7 +20,8 @@ export const createVariation = (): VariationObj => ({
   price: 0,
   stock: 0,
   isOpen: false,
-  status:''
+  status:'',
+  spent:0
 })
 
 type PairSummary = {

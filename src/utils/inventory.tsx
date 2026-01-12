@@ -26,3 +26,15 @@ export const status = [
     'preorder',
     'sold'
 ]
+
+export const variationBadge = (status:string) => {
+    switch (status) {
+        case 'sold':
+            return 'destructive'
+        case 'preorder':
+            return 'outline'
+        default:
+            return 'secondary'
+            break;
+    }
+}

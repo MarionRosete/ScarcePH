@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { type VariationObj } from "@/types/variations"
-import { condition, getsize, status } from "@/utils/inventory"
+import { condition, getsize, status, variationBadge } from "@/utils/inventory"
+import { Badge } from "@/components/ui/badge"
 
 type Props = {
   data: VariationObj
@@ -48,13 +49,16 @@ export function VariationItem({
         <div className="flex justify-between items-center">
           <CollapsibleTrigger asChild>
             <button className="flex items-center gap-2 text-xs font-medium">
-              Variation {index + 1}
+              Variation {index + 1} 
               <motion.span
                 animate={{ rotate: data.isOpen ? 180 : 0 }}
                 className="inline-flex"
               >
                 <ChevronDown className="h-4 w-4" />
               </motion.span>
+              <Badge variant={variationBadge(data.status)}>
+              {data.status}
+              </Badge>
             </button>
           </CollapsibleTrigger>
 
@@ -119,7 +123,7 @@ export function VariationItem({
                     </div> 
                 </div> 
 
-                <div className="grid grid-cols-3 gap-4"> 
+                <div className="grid grid-cols-2 gap-4"> 
                     <div className="grid gap-1 "> 
                         <Label className="text-xs"> Status </Label> 
                         <Select 
@@ -127,8 +131,8 @@ export function VariationItem({
                             value={data.status}
                             
                         > 
-                            <SelectTrigger className="text-xs "> 
-                                <SelectValue placeholder="onhand" className="text-xs w-full"/> 
+                            <SelectTrigger className="text-xs w-full"> 
+                                <SelectValue placeholder="onhand" /> 
                             </SelectTrigger> 
                             <SelectContent className="text-xs"> 
                                 {status.map((cond, key)=> 
@@ -145,6 +149,17 @@ export function VariationItem({
                             className="text-xs w-full" 
                             value={data.price === 0 ? "" : data.price}
                             onChange={e => onUpdate("price", Number(e.target.value))}
+                        /> 
+                    </div> 
+                    <div className="grid gap-1"> 
+                        <Label htmlFor="inv-name" className="text-xs"> Spent </Label> 
+                        <Input
+                            placeholder={"₱5000"} 
+                            required 
+                            type="number" 
+                            className="text-xs w-full"  
+                           value={data.spent === 0 ? "" : data.spent}
+                            onChange={e => onUpdate("spent", Number(e.target.value))}
                         /> 
                     </div> 
                     <div className="grid gap-1"> 
