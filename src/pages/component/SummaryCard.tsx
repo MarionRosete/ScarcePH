@@ -38,7 +38,7 @@ export function SummaryCard({
         ) : (
           <>
             <p className={cn(
-              "text-xs md:text-2xl text-center font-semibold",
+              "text-lg md:text-2xl text-center font-semibold",
               valueClassName
             )}>
               {value}
