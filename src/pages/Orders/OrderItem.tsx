@@ -6,13 +6,15 @@ import { OrderButtons } from "./ActionButton";
 
 
 export function OrderItem ({data}:OrderProps){    
+
     
     return(
         <Card className="p-4 h-auto text-xs md:text-sm">
-            <div>
-                <Badge>
-                    {data.status.toLocaleUpperCase()}
-                </Badge>
+            <div className="flex justify-between">
+                    <Badge>
+                        {data.status.toLocaleUpperCase()}
+                    </Badge>
+                <p className="text-xs">{new Date(data.created_at).toLocaleString()}</p>
             </div>
             <div className="flex">
                 <div className="w-1/2 flex justify-center">
@@ -33,7 +35,7 @@ export function OrderItem ({data}:OrderProps){
                         </PopoverTrigger>
                         <PopoverContent>
                             <img
-                                src={data.payment.payment_ss}
+                                src={data?.payment?.payment_ss}
                             />
                         </PopoverContent>
                     </Popover>
