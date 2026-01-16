@@ -24,9 +24,9 @@ async function CheckToken() {
     }
 }
 
-async function GetOrder(status:string){
+async function GetOrder(status:string, from:string, to:string){
     try {
-        const response = await api.get("/orders/get-all?status="+status)
+        const response = await api.get("/orders/get-all?status="+status+"&from="+from+"&to="+to)
         return response.data
     } catch (error) {
         throw error;

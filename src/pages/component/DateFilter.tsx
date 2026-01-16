@@ -1,7 +1,11 @@
-"use client"
-
 import * as React from "react"
-import { format, startOfWeek, endOfWeek, subWeeks, subDays } from "date-fns"
+import {
+  format,
+  startOfWeek,
+  endOfWeek,
+  subWeeks,
+  subDays,
+} from "date-fns"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -17,22 +21,42 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
+import type { PresetDdateFilter } from "@/types/Order"
 
-type Preset =
-  | "this_week"
-  | "last_week"
-  | "last_7"
-  | "last_30"
-  | "custom"
 
-export default function DateFilter() {
-  const [preset, setPreset] = React.useState<Preset>("this_week")
-  const [range, setRange] = React.useState<{
-    from: Date
-    to: Date
-  }>(() => getPresetRange("this_week"))
 
-  function handlePresetChange(value: Preset) {
+type DateRange = {
+  from: Date
+  to: Date
+}
+
+type Props = {
+  defaultPreset?: PresetDdateFilter
+  onChange: (range: DateRange) => void
+}
+
+export default function DateFilter({
+  defaultPreset = "this_week",
+  onChange,
+}: Props) {
+  const [preset, setPreset] =
+    React.useState<PresetDdateFilter>(defaultPreset)
+
+  const [range, setRange] =
+    React.useState<DateRange>(() =>
+      getPresetRange(defaultPreset)
+    )
+
+  React.useEffect(() => {
+    setPreset(defaultPreset)
+    setRange(getPresetRange(defaultPreset))
+  }, [defaultPreset])
+
+  React.useEffect(() => {
+    onChange(range)
+  }, [range])
+
+  function handlePresetChange(value: PresetDdateFilter) {
     setPreset(value)
 
     if (value !== "custom") {
@@ -42,39 +66,58 @@ export default function DateFilter() {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Preset dropdown */}
-      <Select value={preset} onValueChange={handlePresetChange}>
+      <Select
+        value={preset}
+        onValueChange={handlePresetChange}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="this_week">This week</SelectItem>
-          <SelectItem value="last_week">Last week</SelectItem>
-          <SelectItem value="last_7">Last 7 days</SelectItem>
-          <SelectItem value="last_30">Last 30 days</SelectItem>
-          <SelectItem value="custom">Custom range</SelectItem>
+          <SelectItem value="this_week">
+            This week
+          </SelectItem>
+          <SelectItem value="last_week">
+            Last week
+          </SelectItem>
+          <SelectItem value="last_7">
+            Last 7 days
+          </SelectItem>
+          <SelectItem value="last_30">
+            Last 30 days
+          </SelectItem>
+          <SelectItem value="custom">
+            Custom range
+          </SelectItem>
         </SelectContent>
       </Select>
 
-      {/* Visible date range */}
       <span className="text-sm text-muted-foreground">
-        {format(range.from, "MMM dd")} – {format(range.to, "MMM dd")}
+        {format(range.from, "MMM dd")} –{" "}
+        {format(range.to, "MMM dd")}
       </span>
 
-      {/* Custom picker */}
       {preset === "custom" && (
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+            >
               Pick dates
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
+
+          <PopoverContent
+            className="w-auto p-0"
+            align="start"
+          >
             <Calendar
               mode="range"
               selected={range}
               onSelect={(val: any) => {
-                if (!val?.from || !val?.to) return
+                if (!val?.from || !val?.to)
+                  return
                 setRange(val)
               }}
               numberOfMonths={2}
@@ -86,9 +129,8 @@ export default function DateFilter() {
   )
 }
 
-/* Helpers */
 
-function getPresetRange(preset: Preset) {
+function getPresetRange(preset: PresetDdateFilter): DateRange {
   const now = new Date()
 
   switch (preset) {

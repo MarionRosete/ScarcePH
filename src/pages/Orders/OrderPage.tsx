@@ -3,18 +3,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 import { OrderItem } from "./OrderItem"
-import type { OrderObj } from "@/types/Order"
-
+import type { OrderObj, PresetDdateFilter } from "@/types/Order"
+import DateFilter from "../component/DateFilter"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useState } from "react"
+import { format } from "date-fns"
 
 
 export default function OrderPage() {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     const status = params.get("status") ?? "pending";
+    const rangeParam = params.get("range") as PresetDdateFilter ?? "this_week"
+    const [range, setRange] = useState<{from: string, to: string }>({from: "",to: ""})
+
     let navigate = useNavigate();
 
     const HandleGetOrder = async () => {
-        return await GetOrder(status)
+        return await GetOrder(status, range.from, range.to)
     }
 
     const {
@@ -22,8 +28,9 @@ export default function OrderPage() {
         isLoading,
         isError,
     } = useQuery({
-        queryKey: ["get-order", status],
-        queryFn:HandleGetOrder,
+        queryKey: ["get-order", status, range.from, range.to],
+        enabled: !!range.from && !!range.to,
+        queryFn:HandleGetOrder
     });
     const handleTabs = (e:string) => {
         navigate("/orders?status="+e)
@@ -38,27 +45,41 @@ export default function OrderPage() {
             onValueChange={handleTabs}
         >
             <TabsList>
+                <TabsTrigger value="all">
+                    All
+                </TabsTrigger>
                 <TabsTrigger value="pending">
                     Pending
                 </TabsTrigger>
-
                 <TabsTrigger value="confirmed">
                     Confirmed
                 </TabsTrigger>
                 <TabsTrigger value="completed">
                     Completed
                 </TabsTrigger>
-
                 <TabsTrigger value="cancelled">
                     Cancelled
                 </TabsTrigger>
               
             </TabsList>
             <TabsContent value={status}>
-                <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-[80%] overflow-scroll">
-                    {data?.map((order: OrderObj)=>
-                        <OrderItem data={order}/>
-                    )}
+               <DateFilter
+                    onChange={(val) => {
+                        setRange({
+                        from: format(val.from, "yyyy-MM-dd"),
+                        to: format(val.to, "yyyy-MM-dd"),
+                        })
+                    }}
+                    defaultPreset={rangeParam}
+                />
+                <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-[80%] overflow-scroll mt-2">
+                    {isLoading?      
+                        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                        :
+                        data?.map((order: OrderObj)=>
+                            <OrderItem data={order}/>
+                        )
+                    }
                 </div>
             </TabsContent>
            
