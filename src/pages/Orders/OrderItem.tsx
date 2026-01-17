@@ -9,7 +9,7 @@ export function OrderItem ({data}:OrderProps){
 
     
     return(
-        <Card className="p-4 h-auto text-xs md:text-sm">
+        <Card className="p-4 h-auto text-xs md:text-sm max-w-sm md:max-w-md">
             <div className="flex justify-between">
                     <Badge>
                         {data.status.toLocaleUpperCase()}

@@ -7,12 +7,14 @@ import LoadingScreen from "./pages/LoadingScreen"
 export default function Layout() {
   return (
    <SidebarProvider >
+      <div className="h-screen overflow-hidden flex">
         <AppSidebar />
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col overflow-hidden">
         <Suspense fallback={<LoadingScreen msg='Page loaded'/>}>
           <Outlet/>
         </Suspense>
         </div>
+      </div>
     </SidebarProvider>
   )
 }

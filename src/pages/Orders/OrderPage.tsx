@@ -6,7 +6,7 @@ import { OrderItem } from "./OrderItem"
 import type { OrderObj, PresetDdateFilter } from "@/types/Order"
 import DateFilter from "../component/DateFilter"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useState } from "react"
+import { useState,useRef, useEffect } from "react"
 import { format } from "date-fns"
 
 
@@ -18,6 +18,11 @@ export default function OrderPage() {
     const [range, setRange] = useState<{from: string, to: string }>({from: "",to: ""})
 
     let navigate = useNavigate();
+
+    const handleTabs = (e:string) => {
+        navigate("/orders?status="+e)
+    }
+  
 
     const HandleGetOrder = async () => {
         return await GetOrder(status, range.from, range.to)
@@ -32,58 +37,59 @@ export default function OrderPage() {
         enabled: !!range.from && !!range.to,
         queryFn:HandleGetOrder
     });
-    const handleTabs = (e:string) => {
-        navigate("/orders?status="+e)
-    }
+   
 
  
     return (
-        <div className="p-4 md:p-8 h-full overflow-hidden">
-        <Tabs 
-            className="w-full" 
-            value={status} 
-            onValueChange={handleTabs}
-        >
-            <TabsList>
-                <TabsTrigger value="all">
-                    All
-                </TabsTrigger>
-                <TabsTrigger value="pending">
-                    Pending
-                </TabsTrigger>
-                <TabsTrigger value="confirmed">
-                    Confirmed
-                </TabsTrigger>
-                <TabsTrigger value="completed">
-                    Completed
-                </TabsTrigger>
-                <TabsTrigger value="cancelled">
-                    Cancelled
-                </TabsTrigger>
-              
-            </TabsList>
-            <TabsContent value={status}>
-               <DateFilter
-                    onChange={(val) => {
-                        setRange({
-                        from: format(val.from, "yyyy-MM-dd"),
-                        to: format(val.to, "yyyy-MM-dd"),
-                        })
-                    }}
-                    defaultPreset={rangeParam}
-                />
-                <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-[80%] overflow-scroll mt-2">
-                    {isLoading?      
-                        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-                        :
-                        data?.map((order: OrderObj)=>
-                            <OrderItem data={order}/>
-                        )
-                    }
+        <div className="p-5 h-screen  flex flex-col">
+            <Tabs 
+                value={status} 
+                onValueChange={handleTabs}
+            >   
+                <div className="space-y-3 mb-2">
+                    <TabsList>
+                        <TabsTrigger value="all" className="text-xs md:text-dm">
+                            All
+                        </TabsTrigger>
+                        <TabsTrigger value="pending"className="text-xs md:text-md" >
+                            Pending
+                        </TabsTrigger>
+                        <TabsTrigger value="confirmed" className="text-xs md:text-md">
+                            Confirmed
+                        </TabsTrigger>
+                        <TabsTrigger value="completed" className="text-xs md:text-md">
+                            Completed
+                        </TabsTrigger>
+                        <TabsTrigger value="cancelled"className="text-xs md:text-md">
+                            Cancelled
+                        </TabsTrigger>
+                        
+                    </TabsList>
+                    <DateFilter
+                        onChange={(val) => {
+                            setRange({
+                            from: format(val.from, "yyyy-MM-dd"),
+                            to: format(val.to, "yyyy-MM-dd"),
+                            })
+                        }}
+                        defaultPreset={rangeParam}
+                    />
                 </div>
-            </TabsContent>
-           
-        </Tabs>
+                <div className="overflow-auto max-h-[36%] md:max-h-[87%]">
+                    <TabsContent value={status}>
+                        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-full">
+                            {isLoading ? (
+                            <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                            ) : (
+                            data?.map((order: OrderObj) => (
+                                <OrderItem key={order.id} data={order} />
+                            ))
+                            )}
+                        </div>
+                    </TabsContent>
+                </div>
+            
+            </Tabs>
 
         </div>
     )
