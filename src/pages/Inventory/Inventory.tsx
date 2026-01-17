@@ -52,7 +52,7 @@ function Inventory(){
             <div className="flex justify-end mb-2">
                 <AddPair/>
             </div>
-            <div className="flex flex-col md:flex-row max-h-[90%] overflow-scroll">
+            <div className="flex flex-col md:flex-row max-h-[45%] md:max-h-[90%] overflow-scroll">
                 <ItemGroup className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
                     {isLoading?
                         <div>
