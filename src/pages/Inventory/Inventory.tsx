@@ -48,11 +48,13 @@ function Inventory(){
         )
     }
     return(
-        <div className="m-6">
-            <div className="flex justify-end mb-2">
+        <div className="mr-6 ml-6">
+            <div className="sticky top-0 z-10 backdrop-blur space-y-3 mb-2 flex justify-between pb-3 pt-3">
+                <p>
+                    Pairs
+                </p>
                 <AddPair/>
             </div>
-            <div className="flex flex-col md:flex-row max-h-[45%] md:max-h-[90%] overflow-scroll">
                 <ItemGroup className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
                     {isLoading?
                         <div>
@@ -67,7 +69,6 @@ function Inventory(){
                         )
                     }
                  </ItemGroup>
-            </div>
         </div>
     )
 }

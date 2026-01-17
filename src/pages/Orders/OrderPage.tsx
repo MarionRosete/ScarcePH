@@ -6,7 +6,7 @@ import { OrderItem } from "./OrderItem"
 import type { OrderObj, PresetDdateFilter } from "@/types/Order"
 import DateFilter from "../component/DateFilter"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useState,useRef, useEffect } from "react"
+import { useState } from "react"
 import { format } from "date-fns"
 
 
@@ -41,12 +41,12 @@ export default function OrderPage() {
 
  
     return (
-        <div className="p-5 h-screen  flex flex-col">
+        <div className="p-5 h-full flex flex-col">
             <Tabs 
                 value={status} 
                 onValueChange={handleTabs}
             >   
-                <div className="space-y-3 mb-2">
+                <div className="sticky top-0 z-10 backdrop-blur-lg space-y-3 mb-2">
                     <TabsList>
                         <TabsTrigger value="all" className="text-xs md:text-dm">
                             All
@@ -75,19 +75,17 @@ export default function OrderPage() {
                         defaultPreset={rangeParam}
                     />
                 </div>
-                <div className="overflow-auto max-h-[36%] md:max-h-[87%]">
-                    <TabsContent value={status}>
-                        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-full">
-                            {isLoading ? (
-                            <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-                            ) : (
-                            data?.map((order: OrderObj) => (
-                                <OrderItem key={order.id} data={order} />
-                            ))
-                            )}
-                        </div>
-                    </TabsContent>
-                </div>
+                <TabsContent value={status}>
+                    <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-full">
+                        {isLoading ? (
+                        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                        ) : (
+                        data?.map((order: OrderObj) => (
+                            <OrderItem key={order.id} data={order} />
+                        ))
+                        )}
+                    </div>
+                </TabsContent>
             
             </Tabs>
 
