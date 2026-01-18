@@ -5,6 +5,7 @@ import {
   endOfWeek,
   subWeeks,
   subDays,
+  type Day
 } from "date-fns"
 
 import { Button } from "@/components/ui/button"
@@ -70,10 +71,10 @@ export default function DateFilter({
         value={preset}
         onValueChange={handlePresetChange}
       >
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[180px] text-xs" >
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent >
           <SelectItem value="this_week">
             This week
           </SelectItem>
@@ -92,7 +93,7 @@ export default function DateFilter({
         </SelectContent>
       </Select>
 
-      <span className="text-sm text-muted-foreground">
+      <span className="text-xs text-muted-foreground">
         {format(range.from, "MMM dd")} –{" "}
         {format(range.to, "MMM dd")}
       </span>
@@ -132,19 +133,23 @@ export default function DateFilter({
 
 function getPresetRange(preset: PresetDdateFilter): DateRange {
   const now = new Date()
+  const options: { weekStartsOn: Day } = {
+    weekStartsOn: 1, 
+   }
+
 
   switch (preset) {
     case "this_week":
       return {
-        from: startOfWeek(now),
-        to: endOfWeek(now),
+        from: startOfWeek(now, options),
+        to: endOfWeek(now, options),
       }
 
     case "last_week": {
       const last = subWeeks(now, 1)
       return {
-        from: startOfWeek(last),
-        to: endOfWeek(last),
+        from: startOfWeek(last, options),
+        to: endOfWeek(last, options),
       }
     }
 
