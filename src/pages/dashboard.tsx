@@ -8,8 +8,13 @@ import { SummaryCard } from "./component/SummaryCard";
 import { BestSelling } from "./component/BestSelling";
 import { Link } from "react-router";
 import { Trend } from "./component/Trend";
+import { cn } from "@/lib/utils"
+import { useNavigate } from 'react-router';
+
 
 function Dashboard() {
+    const navigate = useNavigate();
+
     const {
         data,
         isLoading,
@@ -66,9 +71,19 @@ function Dashboard() {
                     title="Orders This Week"
                     icon={<HistoryIcon className="w-4 h-4" />}
                     isLoading={isLoading}
-                    value={weekly?.count}
+                    value={
+                        <p  
+                            className="cursor-pointer"
+                            onClick={()=>navigate(`/orders?status=confirmed&range=this_week`)}
+                        >
+                           { weekly?.count}
+                        </p>
+                    }
                     subtext={
-                        <span className={deltaColor(weekly?.delta)}>
+                        <span 
+                            className={cn(deltaColor(weekly?.delta),"cursor-pointer")}
+                            onClick={()=>navigate(`/orders?status=confirmed&range=last_week`)}
+                        >
                             {weekly?.delta > 0 && "+"}{weekly?.delta||"Even"} vs last week
                         </span>
                     }
