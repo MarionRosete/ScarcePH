@@ -8,11 +8,9 @@ export default function Layout() {
   return (
    <SidebarProvider >
         <AppSidebar />
-        <div className="w-full flex flex-col">
         <Suspense fallback={<LoadingScreen msg='Page loaded'/>}>
           <Outlet/>
         </Suspense>
-        </div>
     </SidebarProvider>
   )
 }

@@ -2,14 +2,19 @@ import {  GetDashboardSummary } from "@/api";
 import {
   useQuery,
 } from '@tanstack/react-query'
-import { ClockFadingIcon, HandCoinsIcon, HistoryIcon, LandmarkIcon, TrendingDown, TrendingUp } from "lucide-react";
+import { ClockFadingIcon, HandCoinsIcon, HistoryIcon, LandmarkIcon } from "lucide-react";
 import { deltaColor, formatPeso, pendingColor } from "@/utils/dashboard";
 import { SummaryCard } from "./component/SummaryCard";
-import { cn } from "@/lib/utils"
 import { BestSelling } from "./component/BestSelling";
 import { Link } from "react-router";
+import { Trend } from "./component/Trend";
+import { cn } from "@/lib/utils"
+import { useNavigate } from 'react-router';
+
 
 function Dashboard() {
+    const navigate = useNavigate();
+
     const {
         data,
         isLoading,
@@ -35,11 +40,11 @@ function Dashboard() {
     const weekly = data?.orders_this_week
     const revenue = data?.revenue_this_month
     
+
     return (
         <div>
             <div className="m-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                 <Link  to="/orders?status=pending" className="block">
-
                     <SummaryCard
                         trendIcon={<></>}
                         title="Pending Orders"
@@ -50,39 +55,42 @@ function Dashboard() {
                         subtext={pending === 0 ? "All clear" : "Needs attention"}
                     />
                 </Link>
+                <Link  to="/orders?status=confirmed" className="block">
+                    <SummaryCard
+                        trendIcon={<></>}
+                        title="Outstanding Balance"
+                        icon={<HandCoinsIcon className="w-4 h-4"/>}
+                        isLoading={isLoading}
+                        value={formatPeso(outstanding)}
+                        subtext={`Across ${outstandingCount} orders`}
+                    />
+                </Link>
 
                 <SummaryCard
-                    trendIcon={<></>}
-                    title="Outstanding Balance"
-                    icon={<HandCoinsIcon className="w-4 h-4"/>}
-                    isLoading={isLoading}
-                    value={formatPeso(outstanding)}
-                    subtext={`Across ${outstandingCount} orders`}
-                />
-
-                <SummaryCard
-                    trendIcon={weekly?.delta > 0 ? 
-                        <TrendingUp className={cn("w-4 h-4", deltaColor(weekly?.delta))}/>
-                        :
-                        <TrendingDown className={cn("w-4 h-4", deltaColor(weekly?.delta))}/>
-                    }
+                    trendIcon={<Trend delta={weekly?.delta}/>}
                     title="Orders This Week"
                     icon={<HistoryIcon className="w-4 h-4" />}
                     isLoading={isLoading}
-                    value={weekly?.count}
+                    value={
+                        <p  
+                            className="cursor-pointer"
+                            onClick={()=>navigate(`/orders?status=confirmed&range=this_week`)}
+                        >
+                           { weekly?.count}
+                        </p>
+                    }
                     subtext={
-                    <span className={deltaColor(weekly?.delta)}>
-                        {weekly?.delta > 0 && "+"}{weekly?.delta} vs last week
-                    </span>
+                        <span 
+                            className={cn(deltaColor(weekly?.delta),"cursor-pointer")}
+                            onClick={()=>navigate(`/orders?status=confirmed&range=last_week`)}
+                        >
+                            {weekly?.delta > 0 && "+"}{weekly?.delta||"Even"} vs last week
+                        </span>
                     }
                 />
 
                 <SummaryCard
-                    trendIcon={revenue?.delta > 0 ? 
-                        <TrendingUp className={cn("w-4 h-4", deltaColor(revenue?.delta))}/>
-                        :
-                        <TrendingDown className={cn("w-4 h-4", deltaColor(revenue?.delta))}/>
-                    }
+                    trendIcon={<Trend delta={revenue?.delta}/>}
                     title="Revenue (Month)"
                     icon={<LandmarkIcon className="w-4 h-4" />}
                     isLoading={isLoading}

@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import api from "./setup";
 import type { UpdateOrderParams, VariationParams } from "@/types/api";
+import type { CustomerObj } from "@/types/customer";
 
 async function 
 LoginAPI(email: string, password: string) {
@@ -24,9 +25,9 @@ async function CheckToken() {
     }
 }
 
-async function GetOrder(status:string){
+async function GetOrder(status:string, from:string, to:string){
     try {
-        const response = await api.get("/orders/get-all?status="+status)
+        const response = await api.get("/orders/get-all?status="+status+"&from="+from+"&to="+to)
         return response.data
     } catch (error) {
         throw error;
@@ -107,7 +108,56 @@ async function GetBestSeller(){
     }
 }
 
+async function GetCustomers(){
+    try {
+        const response = await api.get('customer/get-all')
+        return response.data.customers
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to get customers"
+        );
+        throw error
+    }
+}
 
+async function CreateCustomer(payload:CustomerObj){
+    try {
+        const {id, ...rest} = payload;
+        const response = await api.post('customer/create', rest)
+        toast.success('Successfully created customer')
+        return response.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to create customer"
+        );
+        throw error
+    }
+}
+
+async function GetAllAvailablePairs(){
+     try {
+        const response = await api.get('inventory/get-all-available')
+        return response.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to get customers"
+        );
+        throw error
+    }
+}
+
+async function CreateOrder(payload:{customer_id:string, inventory_id:number, variation_id:number, status: string}){
+    try {
+        const res = await api.post('save-order', payload)
+        toast.success('Order created successfully')
+        return res.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to get customers"
+        );
+        throw error
+    }
+}
 export { 
     LoginAPI, 
     CheckToken,
@@ -117,5 +167,9 @@ export {
     CreateVariation,
     GetDashboardSummary,
     GetBestSeller,
-    GetOrder
+    GetOrder,
+    GetCustomers,
+    GetAllAvailablePairs,
+    CreateCustomer,
+    CreateOrder
 };

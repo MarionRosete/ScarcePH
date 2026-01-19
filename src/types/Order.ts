@@ -46,3 +46,10 @@ export type OrderObj = {
 export type OrderProps = {
     data: OrderObj
 }
+
+export type PresetDdateFilter =
+  | "this_week"
+  | "last_week"
+  | "last_7"
+  | "last_30"
+  | "custom"
