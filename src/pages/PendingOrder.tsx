@@ -194,7 +194,8 @@ function CancelInput({cancelReason, setCancelReason}:CancelInput){
 async function handleOrder({order_id, status, received_payment, cancel_reason, setIsLoading}:HandleOrder)  {
     setIsLoading(true)
     try {
-        const order = await UpdateOrder(order_id, status, received_payment, cancel_reason)
+        const payload ={order_id, status, received_payment, cancel_reason, release:''}
+        const order = await UpdateOrder(payload)
         toast.success("Order " + order.status)
     } catch (error) {
         toast.error(

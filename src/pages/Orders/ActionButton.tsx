@@ -70,7 +70,7 @@ export function OrderButtons({ status, order_id }: { status: string, order_id:nu
             return (
             <>
                 <ConfirmationDialog
-                    title="Reject Order"
+                    title="Cancel Order"
                     description="NOTE: We'll message the customer for this reason"
                     confirm={handleUpdateOrder}
                     input={

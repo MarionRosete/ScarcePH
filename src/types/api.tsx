@@ -17,6 +17,6 @@ export type UpdateOrderParams = {
   status:string
   received_payment:number
   cancel_reason:string,
-  release:string
+  release:string|''
 }
 

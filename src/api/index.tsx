@@ -36,9 +36,9 @@ async function GetOrder(status:string, from:string, to:string){
 
 
 
-async function UpdateOrder({order_id, status, received_payment, cancel_reason}:UpdateOrderParams){
+async function UpdateOrder(payload:UpdateOrderParams){
     try {
-        const response = await api.post('/orders/update-status',{order_id, status, received_payment, cancel_reason})
+        const response = await api.post('/orders/update-status',payload)
         return response.data
     } catch (error) {
         throw error;

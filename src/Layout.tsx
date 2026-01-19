@@ -8,9 +8,12 @@ export default function Layout() {
   return (
    <SidebarProvider >
         <AppSidebar />
+        <div>
+        <SidebarTrigger/>
         <Suspense fallback={<LoadingScreen msg='Page loaded'/>}>
           <Outlet/>
         </Suspense>
+        </div>
     </SidebarProvider>
   )
 }
