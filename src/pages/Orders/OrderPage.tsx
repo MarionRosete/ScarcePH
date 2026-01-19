@@ -8,6 +8,7 @@ import DateFilter from "../component/DateFilter"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useState } from "react"
 import { format } from "date-fns"
+import AddOrder from "../component/order/AddOrder"
 
 
 export default function OrderPage() {
@@ -31,7 +32,6 @@ export default function OrderPage() {
     const {
         data,
         isLoading,
-        isError,
     } = useQuery({
         queryKey: ["get-order", status, range.from, range.to],
         enabled: !!range.from && !!range.to,
@@ -65,15 +65,18 @@ export default function OrderPage() {
                         </TabsTrigger>
                         
                     </TabsList>
-                    <DateFilter
-                        onChange={(val) => {
-                            setRange({
-                            from: format(val.from, "yyyy-MM-dd"),
-                            to: format(val.to, "yyyy-MM-dd"),
-                            })
-                        }}
-                        defaultPreset={rangeParam}
-                    />
+                    <div className="flex items-center space-x-2">
+                        <DateFilter
+                            onChange={(val) => {
+                                setRange({
+                                from: format(val.from, "yyyy-MM-dd"),
+                                to: format(val.to, "yyyy-MM-dd"),
+                                })
+                            }}
+                            defaultPreset={rangeParam}
+                        />
+                        <AddOrder/>
+                    </div>
                 </div>
                 <TabsContent value={status}>
                     <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6 h-full">

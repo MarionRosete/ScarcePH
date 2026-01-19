@@ -7,26 +7,16 @@ import {
   ItemGroup
 } from "@/components/ui/item"
 import { Variations } from "./Variations";
-import { type VariationObj } from "@/types/variations";
 import { GetAllInventory } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AddPair } from "../AddPair";
+import type { InventoryObj } from "@/types/Inventory";
 
-
-interface InventoryObj {
-    name:string,
-    description:string
-    image:string
-    variations: VariationObj[];
-    id:number
-}
 
 interface InventoryItemProps{
     inv:InventoryObj
 }
-
-
 
 
 
