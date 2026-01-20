@@ -11,10 +11,10 @@ import { PlusCircle } from "lucide-react"
 import { useState } from "react"
 
 
-import { Variations } from "./Inventory/Variations"
+import { Variations } from "./inventory/Variations"
 import { Progress } from "@/components/ui/progress"
 import { CreatePair } from "@/api"
-import { InventoryForm } from "./Inventory/InventoryForm"
+import { InventoryForm } from "./inventory/InventoryForm"
 import { createVariation, type InventoryData } from "@/types/variations"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
