@@ -158,6 +158,19 @@ async function CreateOrder(payload:{customer_id:string, inventory_id:number, var
         throw error
     }
 }
+
+async function ChangePassword(new_password:string, password:string ){
+    try {
+        const res = await api.post('auth/change-password', {new_password, password})
+        toast.success('Password changed successfully')
+        return res.data
+    } catch (error) {
+          toast.error(
+            error instanceof Error ? error.message : "Failed to change password"
+        );
+        throw error
+    }
+}
 export { 
     LoginAPI, 
     CheckToken,
@@ -171,5 +184,6 @@ export {
     GetCustomers,
     GetAllAvailablePairs,
     CreateCustomer,
-    CreateOrder
+    CreateOrder,
+    ChangePassword
 };
