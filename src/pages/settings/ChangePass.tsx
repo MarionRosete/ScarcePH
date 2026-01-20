@@ -16,7 +16,7 @@ import { useMutation } from "@tanstack/react-query"
 import { ChangePassword } from "@/api"
 
 
-export default function UserSettings(){
+export default function ChangePass(){
     const [password, setPassword] = useState("")
     const [newPass, setNewPass] = useState("")
     const [confirm, setConfirm] = useState("")
