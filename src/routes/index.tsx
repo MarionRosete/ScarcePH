@@ -4,8 +4,8 @@ import { PrivateRoute } from '@/routes/PrivateRoutes';
 import { PublicRoute } from './PublicRoute';
 import Layout from '@/Layout';
 import Dashboard from '@/pages/dashboard';
-import Inventory from '@/pages/Inventory/Inventory';
-import OrderPage from '@/pages/Orders/OrderPage';
+import Inventory from '@/pages/inventory/Inventory';
+import OrderPage from '@/pages/orders/OrderPage';
 
 const Login = lazy(() => import('@/pages/login'));
 const PageNotFound = lazy(()=> import('@/pages/notfound'));
