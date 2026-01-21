@@ -55,9 +55,17 @@ async function GetAllInventory(){
     }
 }
 
-async function CreatePair(name:string, description:string, image:string){
+async function CreatePair(name:string, description:string, file: File|null){
+    const formData = new FormData()
+    formData.append("file", file as Blob) 
+    formData.append("name", name)
+    formData.append("description", description)
     try {
-        const response = await api.post('/inventory/create', {name, description, image})
+        const response = await api.post('/inventory/create', formData,{
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
         toast.success('Successfully created pair')
         return response.data
     } catch (error) {

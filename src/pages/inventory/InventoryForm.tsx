@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import type { InventoryData } from "@/types/variations"
+import ImagePicker from "../component/ImagePicker"
 
 type InventoryFormProps = {
   value: InventoryData
@@ -32,17 +33,10 @@ export function InventoryForm({ value, onSubmit }: InventoryFormProps) {
 
   return (
     <div className="grid gap-4">
-        {form.image?
-            <div className="p-8">
-            <img 
-                src={form.image}
-                className="rounded-sm object-fit"
-                alt={'OG VENOM'}
-            />
-            </div>
-            :
-            <></>
-        }
+        <ImagePicker
+            initialImage={form.file ? URL.createObjectURL(form.file) : form.image}
+            setImage={(event) => setForm(v => ({ ...v, file: event }))}
+        />
         <div className="grid gap-2">
             <Label className="text-xs">Name</Label>
             <Input

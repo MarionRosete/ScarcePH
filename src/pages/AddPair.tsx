@@ -29,6 +29,7 @@ export function AddPair() {
     name: "",
     description: "",
     image: "",
+    file: null
   })
 
   const progress = (step / 2) * 100
@@ -39,7 +40,7 @@ export function AddPair() {
     return CreatePair(
       payload.name,
       payload.description,
-      payload.image
+      payload.file
     )
   }
   const addInventoryMutation = useMutation({
