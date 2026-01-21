@@ -1,11 +1,6 @@
-const IMG_DIR = "https://marionrosete.github.io/ScarcePH/public/static/"
 import { Input } from "@/components/ui/input"
 import { ChevronRight } from "lucide-react"
 import { useState } from "react"
-
-import {
-  FieldDescription,
-} from "@/components/ui/field"
 
 import { Textarea } from "@/components/ui/textarea"
 
@@ -33,10 +28,12 @@ export function InventoryForm({ value, onSubmit }: InventoryFormProps) {
 
   return (
     <div className="grid gap-4">
-        <ImagePicker
-            initialImage={form.file ? URL.createObjectURL(form.file) : form.image}
-            setImage={(event) => setForm(v => ({ ...v, file: event }))}
-        />
+        <div className="w-full flex justify-center">
+          <ImagePicker
+              initialImage={form.file ? URL.createObjectURL(form.file) : form.image}
+              setImage={(event) => setForm(v => ({ ...v, file: event }))}
+          />
+        </div>
         <div className="grid gap-2">
             <Label className="text-xs">Name</Label>
             <Input
@@ -57,23 +54,6 @@ export function InventoryForm({ value, onSubmit }: InventoryFormProps) {
                 setForm(v => ({ ...v, description: e.target.value }))
             }
             />
-        </div>
-
-        <div className="grid gap-2">
-            <Label className="text-xs">Image</Label>
-            <Input
-            className="text-xs h-8"
-            placeholder="OG.PNG"
-            onChange={e =>
-                setForm(v => ({
-                ...v,
-                image: IMG_DIR + e.target.value,
-                }))
-            }
-            />
-            <FieldDescription className="text-xs">
-            Use image name from public/static
-            </FieldDescription>
         </div>
 
         <Button
