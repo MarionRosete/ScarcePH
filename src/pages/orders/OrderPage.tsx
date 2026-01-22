@@ -9,7 +9,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useState } from "react"
 import { format } from "date-fns"
 import AddOrder from "../component/order/AddOrder"
-import { NoDataPage } from "../NoData"
 
 
 export default function OrderPage() {
