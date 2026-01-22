@@ -5,12 +5,10 @@ import {
   FieldSet,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import logo from "/image/greyed logo.png"
 
 function LoginPage() {
     const { login } = useAuth();
@@ -32,13 +30,12 @@ function LoginPage() {
            <div className="w-full md:max-w-md  p-8">
                 <form  onSubmit={handleSubmit}>
                     <FieldSet className="space-y-4 mt-4" >
-                        <Avatar className="mb-4 mx-auto h-22 w-22 mt-2">
-                            <AvatarImage 
-                                src={logo}
-
+                        <div className="flex justify-center mb-4">
+                            <img 
+                                src="/image/ScarceLogo.PNG "
+                                className="w-20 md:w-40 rounded-sm object-fit rounded-md object-fit"
                             />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        </div>
                         <FieldGroup>
                             <Field>
                                 <FieldLabel htmlFor="name">Email</FieldLabel>
