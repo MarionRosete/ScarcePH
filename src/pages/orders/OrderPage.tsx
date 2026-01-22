@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useState } from "react"
 import { format } from "date-fns"
 import AddOrder from "../component/order/AddOrder"
+import { NoDataPage } from "../NoData"
 
 
 export default function OrderPage() {
@@ -83,9 +84,15 @@ export default function OrderPage() {
                         {isLoading ? (
                         <Skeleton className="h-[125px] w-[250px] rounded-xl" />
                         ) : (
+                        data?.length?
                         data?.map((order: OrderObj) => (
                             <OrderItem key={order.id} data={order} />
                         ))
+                        :
+                        <p className="text-md text-center col-span-3">
+                            No orders found.
+                        </p>
+
                         )}
                     </div>
                 </TabsContent>
