@@ -39,11 +39,12 @@ function Dashboard() {
     const outstandingCount = data?.outstanding_balance.count
     const weekly = data?.orders_this_week
     const revenue = data?.revenue_this_month
+    const net_profit = data?.net_profit_this_month
     
 
     return (
         <div>
-            <div className="m-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+            <div className="m-6 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
                 <Link  to="/orders?status=pending" className="block">
                     <SummaryCard
                         trendIcon={<></>}
@@ -101,8 +102,23 @@ function Dashboard() {
                     </span>
                     }
                 />
-                <BestSelling/>
+                <SummaryCard
+                    trendIcon={<Trend delta={net_profit?.delta}/>}
+                    title="Profit (Month)"
+                    icon={<LandmarkIcon className="w-4 h-4" />}
+                    isLoading={isLoading}
+                    value={formatPeso(net_profit?.amount)}
+                    subtext={
+                    <span className={deltaColor(net_profit?.delta)}>
+                        {net_profit?.delta > 0 ? "Up +":"Down "}{formatPeso(net_profit?.delta)} vs last month
+                    </span>
+                    }
+                />
+          
+                 <BestSelling/>
             </div>
+           
+
         </div>
     )
 }

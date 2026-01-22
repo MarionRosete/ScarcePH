@@ -65,7 +65,13 @@ export function OrderItem ({data}:OrderProps){
                     </p>
                     <p>
                         Price: ₱{Math.abs(data.variation.price).toLocaleString()}
-                    </p>                  
+                    </p>         
+                    <p>
+                        Spent: ₱{Math.abs(data.variation.spent).toLocaleString()}
+                    </p>
+                    <p>
+                        Profit: ₱{Math.abs(data.variation.price - data.variation.spent).toLocaleString()}
+                    </p>         
                 </div>
                 <div className="w-1/2 text-right">
                     {/* <p className="font-bold underline">
