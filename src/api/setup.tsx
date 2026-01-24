@@ -1,5 +1,4 @@
-import axios from "axios";
-import type { ApiErrorResponse } from "@/types/api";
+import axios, { AxiosError } from "axios";
 
 
 const api = axios.create({
@@ -24,26 +23,8 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  (error: unknown) => {
-    if (axios.isAxiosError<ApiErrorResponse>(error)) {
-      const message =
-        error.response?.data?.message ||
-        error.message ||
-        "Request failed";
-
-      const status = error.response?.status;
-      if (status === 401) {
-        localStorage.removeItem("token");
-        if (!window.location.pathname.includes("/")) {
-          window.location.replace("/");
-        }
-
-      }
-
-      return Promise.reject(new Error(message));
-    }
-
-    return Promise.reject(new Error("Unexpected error occurred"));
+  (error: AxiosError) => {
+    throw error
   }
 );
 

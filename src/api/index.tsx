@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import api from "./setup";
-import type { UpdateOrderParams, VariationParams } from "@/types/api";
-import type { CustomerObj } from "@/types/customer";
+import type { UpdateOrderParams, VariationParams } from "@/features/admin/types/api";
+import type { CustomerObj } from "@/features/admin/types/customer";
 
 async function 
 LoginAPI(email: string, password: string) {
