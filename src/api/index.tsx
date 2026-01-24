@@ -6,7 +6,7 @@ import type { CustomerObj } from "@/features/admin/types/customer";
 async function 
 LoginAPI(email: string, password: string) {
     try {
-        const response = await api.post("/login", {
+        const response = await api.post("/auth/login", {
             email,
             password,
         });

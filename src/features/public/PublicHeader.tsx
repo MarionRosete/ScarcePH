@@ -1,6 +1,8 @@
 import { ShoppingCartIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-export function PublicHeader({onLoginClick}: {onLoginClick: (v:boolean) => void,}){
+import AuthModal from "../auth/pages/AuthModal";
+export function PublicHeader(){
+    
     return(
         <div className="sticky top-0 z-10 backdrop-blur space-y-3 mb-2 flex justify-between pb-3 pt-3">
             <div className="flex w-full justify-between">
@@ -22,11 +24,10 @@ export function PublicHeader({onLoginClick}: {onLoginClick: (v:boolean) => void,
                     <Button size='icon-sm' variant={'outline'}>
                         <ShoppingCartIcon/>
                     </Button>
-                    <Button size='sm' variant='outline' onClick={()=>onLoginClick(true)}> 
-                        Login
-                    </Button>
+                    <AuthModal/>
                 </div>
             </div>
+            
         </div>
     )
 }

@@ -4,11 +4,13 @@ import {
   LayoutDashboardIcon,
   SettingsIcon,
   ChevronDown,
+  LogOut,
 } from "lucide-react"
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
@@ -26,6 +28,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
+import { Button } from "@/components/ui/button"
+import { useLogout } from "@/features/auth/hooks/useAuth"
 
 
 const items = [
@@ -56,6 +60,7 @@ const settings = [
 export function AppSidebar() {
   const location = useLocation()
   const isSettingsRoute = location.pathname.startsWith("/settings")
+  const {mutate: logout }=useLogout()
 
   return (
     <Sidebar collapsible="icon">
@@ -154,8 +159,23 @@ export function AppSidebar() {
 
           </SidebarGroupContent>
         </SidebarGroup>
-
       </SidebarContent>
+      <SidebarFooter>
+        <div className="flex justify-between items-center">
+            <p>
+              Marion Rosete
+            </p>
+           
+
+            <Button 
+              variant={'ghost'} 
+              size={'sm'}
+              onClick={()=>logout()}
+            >
+               Logout <LogOut/>
+            </Button>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   )
 }

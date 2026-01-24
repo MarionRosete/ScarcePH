@@ -12,7 +12,6 @@ export const Header: React.FC = () => {
 
   const [delay, setDelay] = useState(false)
 
-   const [authModalOpen, setAuthModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -39,16 +38,12 @@ export const Header: React.FC = () => {
     <div className="flex h-screen w-screen">
         <div className="m-5 w-full h-full">
          { data?.user?.role === "user" ?  
-          <UserHeader /> : 
-          <PublicHeader onLoginClick={() => setAuthModalOpen(true)} />
+          <UserHeader user={data.user.email} /> 
+          : 
+          <PublicHeader/>
 
         }
-            <Outlet/>
-
-            <AuthModal
-              open={authModalOpen}
-              onOpenChange={setAuthModalOpen}
-            />
+          <Outlet/>
         </div>
     </div>
   ) 

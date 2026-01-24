@@ -21,14 +21,18 @@ export function checkToken() {
 
 export function loginRequest(payload: AuthParams) {
   return apiClient.post(
-    "/login",
+    "/auth/login",
     payload
   );
 }
 
 export function registerRequest(payload:AuthParams){
     return apiClient.post(
-    "/register",
+    "/auth/register",
     payload
   );
+}
+
+export function logoutRequest(){
+  return apiClient.post("/auth/logout")
 }
