@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useAuthCheck } from '@/features/auth/hooks/useAuth';
 import { PublicHeader  } from '@/features/public/PublicHeader';
 import { UserHeader } from '@/features/public/UserHeader';
-import AuthModal from '@/features/auth/pages/AuthModal';
 
 
 export const Header: React.FC = () => {
