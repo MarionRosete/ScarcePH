@@ -53,7 +53,7 @@ const items = [
 const settings = [
   {
     title: "Change Password",
-    url:"/settings/change-password"
+    url:"/admin/settings/change-password"
   }
 ]
 
