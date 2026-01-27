@@ -1,6 +1,6 @@
 export interface VariationObj {
   id: number
-  image: string
+  image: []
   url: string
   condition: string
   size: string
@@ -8,12 +8,13 @@ export interface VariationObj {
   stock: number
   isOpen: boolean,
   status:string,
-  spent:number
+  spent:number,
+  files: File[]|null,
 }
 
 export const createVariation = (): VariationObj => ({
   id: 0,
-  image: "",
+  image: [],
   url: "",
   condition: "",
   size: "",
@@ -21,7 +22,8 @@ export const createVariation = (): VariationObj => ({
   stock: 0,
   isOpen: false,
   status:'',
-  spent:0
+  spent:0,
+  files: []
 })
 
 type PairSummary = {

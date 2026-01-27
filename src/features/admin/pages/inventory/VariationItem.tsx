@@ -78,7 +78,103 @@ export function VariationItem({
             className="overflow-hidden"
           >
             <div className="grid gap-4 border p-4 rounded-md mt-2">
-                <div className="grid gap-1"> 
+              <Input 
+                id="picture" 
+                type="file"
+                accept="image/*"
+                multiple={true}
+                className="text-xs w-full" 
+                onChange={(e)=>{
+                  const files = Array.from(e.target.files || [])
+                  onUpdate("files", files) 
+                }}
+              />
+              
+              <div className="grid grid-cols-2 gap-4"> 
+                  <div className="grid gap-1"> 
+                      <Label className="text-xs"> Condition </Label> 
+                      <Select 
+                          onValueChange={(v)=> onUpdate("condition", v)} 
+                          value={data.condition}
+                      > 
+                          <SelectTrigger className="text-xs w-full"> 
+                              <SelectValue placeholder="new in box" /> 
+                          </SelectTrigger> 
+                          <SelectContent className="text-xs"> 
+                              {condition.map((cond, key)=> 
+                                  <SelectItem value={cond} key={key}>{cond}</SelectItem> 
+                              )} 
+                          </SelectContent> 
+                      </Select> 
+                  </div>
+                
+                  <div className="grid gap-1"> 
+                      <Label htmlFor="checkout-7j9-exp-year-f59" className="text-xs"> Size </Label> 
+                      <Select 
+                          onValueChange={(v)=> onUpdate("size", v)}
+                          value={data.size}
+                      > 
+                          <SelectTrigger className="text-xs w-full"> 
+                              <SelectValue placeholder="10.5 us" /> 
+                          </SelectTrigger> 
+                          <SelectContent> {getsize().map((sz, key)=> 
+                              <SelectItem value={sz.toString()} key={key}> {sz} us </SelectItem> )} 
+                          </SelectContent> 
+                      </Select> 
+                  </div> 
+              </div> 
+              <div className="grid grid-cols-2 gap-4"> 
+                  <div className="grid gap-1 "> 
+                      <Label className="text-xs"> Status </Label> 
+                      <Select 
+                          onValueChange={(v)=> onUpdate("status", v)} 
+                          value={data.status}
+                          
+                      > 
+                          <SelectTrigger className="text-xs w-full"> 
+                              <SelectValue placeholder="onhand" /> 
+                          </SelectTrigger> 
+                          <SelectContent className="text-xs"> 
+                              {status.map((cond, key)=> 
+                                  <SelectItem value={cond} key={key}>{cond}</SelectItem> 
+                              )} 
+                          </SelectContent> 
+                      </Select> 
+                  </div> 
+                  <div className="grid gap-1 ">
+                      <Label htmlFor="inv-name" className="text-xs"> Price </Label> 
+                      <Input
+                          placeholder="₱7000" 
+                          required type="number" 
+                          className="text-xs w-full" 
+                          value={data.price === 0 ? "" : data.price}
+                          onChange={e => onUpdate("price", Number(e.target.value))}
+                      /> 
+                  </div> 
+                  <div className="grid gap-1"> 
+                      <Label htmlFor="inv-name" className="text-xs"> Spent </Label> 
+                      <Input
+                          placeholder={"₱5000"} 
+                          required 
+                          type="number" 
+                          className="text-xs w-full"  
+                          value={data.spent === 0 ? "" : data.spent}
+                          onChange={e => onUpdate("spent", Number(e.target.value))}
+                      /> 
+                  </div> 
+                  <div className="grid gap-1"> 
+                      <Label htmlFor="inv-name" className="text-xs"> Quantity </Label> 
+                      <Input
+                          placeholder={"1"} 
+                          required 
+                          type="number" 
+                          className="text-xs w-full"  
+                          value={data.stock === 0 ? "" : data.stock}
+                          onChange={e => onUpdate("stock", Number(e.target.value))}
+                      /> 
+                  </div> 
+              </div> 
+               <div className="grid gap-1"> 
                     <Label htmlFor="inv-name" className="text-xs"> Facebook post </Label> 
                     <Input
                         placeholder="https://www.facebook.com/share/p/1AQctcDZcj/" 
@@ -87,92 +183,6 @@ export function VariationItem({
                         onChange={e => onUpdate("url", e.target.value)}
                         value={data.url}
                     /> 
-                </div> 
-
-                <div className="grid grid-cols-2 gap-4"> 
-                    <div className="grid gap-1"> 
-                        <Label className="text-xs"> Condition </Label> 
-                        <Select 
-                            onValueChange={(v)=> onUpdate("condition", v)} 
-                            value={data.condition}
-                        > 
-                            <SelectTrigger className="text-xs w-full"> 
-                                <SelectValue placeholder="new in box" /> 
-                            </SelectTrigger> 
-                            <SelectContent className="text-xs"> 
-                                {condition.map((cond, key)=> 
-                                    <SelectItem value={cond} key={key}>{cond}</SelectItem> 
-                                )} 
-                            </SelectContent> 
-                        </Select> 
-                    </div>
-                 
-                    <div className="grid gap-1"> 
-                        <Label htmlFor="checkout-7j9-exp-year-f59" className="text-xs"> Size </Label> 
-                        <Select 
-                            onValueChange={(v)=> onUpdate("size", v)}
-                            value={data.size}
-                        > 
-                            <SelectTrigger className="text-xs w-full"> 
-                                <SelectValue placeholder="10.5 us" /> 
-                            </SelectTrigger> 
-                            <SelectContent> {getsize().map((sz, key)=> 
-                                <SelectItem value={sz.toString()} key={key}> {sz} us </SelectItem> )} 
-                            </SelectContent> 
-                        </Select> 
-                    </div> 
-                </div> 
-
-                <div className="grid grid-cols-2 gap-4"> 
-                    <div className="grid gap-1 "> 
-                        <Label className="text-xs"> Status </Label> 
-                        <Select 
-                            onValueChange={(v)=> onUpdate("status", v)} 
-                            value={data.status}
-                            
-                        > 
-                            <SelectTrigger className="text-xs w-full"> 
-                                <SelectValue placeholder="onhand" /> 
-                            </SelectTrigger> 
-                            <SelectContent className="text-xs"> 
-                                {status.map((cond, key)=> 
-                                    <SelectItem value={cond} key={key}>{cond}</SelectItem> 
-                                )} 
-                            </SelectContent> 
-                        </Select> 
-                    </div> 
-                    <div className="grid gap-1 ml-2">
-                        <Label htmlFor="inv-name" className="text-xs"> Price </Label> 
-                        <Input
-                            placeholder="₱7000" 
-                            required type="number" 
-                            className="text-xs w-full" 
-                            value={data.price === 0 ? "" : data.price}
-                            onChange={e => onUpdate("price", Number(e.target.value))}
-                        /> 
-                    </div> 
-                    <div className="grid gap-1"> 
-                        <Label htmlFor="inv-name" className="text-xs"> Spent </Label> 
-                        <Input
-                            placeholder={"₱5000"} 
-                            required 
-                            type="number" 
-                            className="text-xs w-full"  
-                           value={data.spent === 0 ? "" : data.spent}
-                            onChange={e => onUpdate("spent", Number(e.target.value))}
-                        /> 
-                    </div> 
-                    <div className="grid gap-1"> 
-                        <Label htmlFor="inv-name" className="text-xs"> Quantity </Label> 
-                        <Input
-                            placeholder={"1"} 
-                            required 
-                            type="number" 
-                            className="text-xs w-full"  
-                           value={data.stock === 0 ? "" : data.stock}
-                            onChange={e => onUpdate("stock", Number(e.target.value))}
-                        /> 
-                    </div> 
                 </div> 
             </div>
           </motion.div>

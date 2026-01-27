@@ -24,7 +24,7 @@ export const useVariations= (pair_id:number) => {
   const toggle = (index: number) =>
     setVars(v =>
       v.map((x, i) =>
-        i === index ? { ...x, isOpen: !x.isOpen } : x
+        i === index ? { ...x, isOpen: !x.isOpen } : {...x, isOpen:false}
       )
     )
 
@@ -68,6 +68,8 @@ export const useVariations= (pair_id:number) => {
 
   const submit = () => {
     const variations = buildVariationPayload(vars)
+    console.log('variations',variations);
+    
 
     addVariationsMutation.mutate({
       pairId:pair_id,

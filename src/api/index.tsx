@@ -77,9 +77,26 @@ async function CreatePair(name:string, description:string, file: File|null){
 }
 
 async function CreateVariation(inventory_id:number, variations:VariationParams[]){
+    const formData = new FormData();
+    formData.append("inventory_id", String(inventory_id));
+
+    const cleanedVariations = variations.map((variation, index) => {
+        variation.files?.forEach((file) => {
+            formData.append(`images[${index}]`, file);
+        });
+
+        const { files, ...rest } = variation;
+        return rest;
+    });
+
+    formData.append("variations", JSON.stringify(cleanedVariations));
     
     try {
-        const response = await api.post('/inventory/create-variation',{inventory_id, variations})
+        const response = await api.post('/inventory/create-variation',formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
         if(response.data){
             toast.success(response.data.message)
         }

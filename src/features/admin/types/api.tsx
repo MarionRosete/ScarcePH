@@ -6,10 +6,11 @@ export type VariationParams = {
   condition: string,
   price: number,
   size: string,
-  image: string,
+  image:[]
   status: string,
   stock: number,
   url:string,
+  files: File[]|null
 }
 
 export type UpdateOrderParams = {
