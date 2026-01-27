@@ -24,10 +24,9 @@ export function MobileSheet() {
         <SheetHeader>
             <img src="/image/ScarceLogo.PNG" className="w-24 object-fit" />
         </SheetHeader>
-        <div className="p-2 space-y-3">
-            <p>Cart</p>
-            <p>Cart</p>
-            <p>Cart</p>
+        <div className="p-2 space-y-4">
+            <p className="hover:bg-gray-600 pt-2 pb-2">Orders</p>
+            <p className="hover:bg-gray-600 pt-2 pb-2">Shipping address</p>
         </div>
         <SheetFooter >
             <div className="flex justify-end w-full">

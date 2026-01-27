@@ -7,7 +7,7 @@ export function PairList(){
    const { data:pairs, isLoading }= useGetPairs()
    
    return (
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6 m-3 md:m-5">
             {isLoading?
                 <div>
                     <Skeleton/>

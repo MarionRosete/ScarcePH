@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Item,  ItemDescription,  ItemTitle } from "@/components/ui/item";
 import type { PairObj, VariationObj } from "@/types/pair";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+
 
 type PairProps = {
     pair:PairObj
@@ -9,32 +11,61 @@ type PairProps = {
 
 export default function PairInfo ({pair}:PairProps) {
     const [selected, setSelected] = useState<VariationObj|null>(null)
+    const [carousel, setCarousel] = useState<string[]>([pair.image])
+
+    useEffect(()=>{
+        selected?.image?.length ? 
+            setCarousel([pair.image, ...selected.image])
+            :
+            setCarousel([pair.image])
+    },[selected])    
+
     return (
         <div>
-            <Item className="flex justify-center flex-col space-y-2">
-                <img
-                    className="w-25 md:w-50 rounded-sm object-fit"
-                    src={pair.image}
-                />
-                <ItemTitle className="text-sm mt-2">
-                    {pair.name}
-                </ItemTitle>
-                <ItemDescription className="text-xs">
-                    {pair.description}
-                </ItemDescription>
-            </Item>
-            <p>Size</p>
+            <div className="shrink-0 flex justify-center py-2">
+                <Carousel className="w-full max-w-[140px] md:max-w-[220px]">
+                    <CarouselContent>
+                        {carousel.map((img, index) => (
+                        <CarouselItem key={index} className="flex justify-center">
+                            <div className="w-full aspect-square max-h-[160px] md:max-h-[260px] overflow-hidden flex items-center justify-center">
+                            <img
+                                src={img}
+                                alt="Preview"
+                                className="h-full w-full object-contain rounded-md"
+                            />
+                            </div>
+                        </CarouselItem>
+                        ))}
+                    </CarouselContent>
+
+                {carousel.length > 1 && (
+                    <>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                    </>
+                )}
+                </Carousel>
+            </div>
+           
             <div className="flex justify-center w-full items-center">
-                <div className="mt-2 space-x-4 overflow-scroll w-full pl-2 pr-2 flex ">
-                    {pair.variations.map((data)=>
-                        <Button 
-                            variant={selected?.id === data.id?'default':'outline'} 
-                            size="xs"
-                            onClick={()=>setSelected(selected?null:data)}
-                        > 
-                            {data.size}us
-                        </Button>
-                    )}
+                 <p>Size:</p>
+                <div className=" overflow-scroll w-full pl-2 pr-2 flex ">
+                    <ToggleGroup
+                        type="single"
+                        size="sm"
+                        variant="outline"
+                        spacing={2}
+                    >
+                        {pair.variations.map((data)=>
+                            <ToggleGroupItem 
+                                onClick={()=>setSelected(data)}
+                                value={data.size}
+                                className="pt-0 pb-0"
+                            > 
+                                {data.size}us
+                            </ToggleGroupItem>
+                        )}
+                    </ToggleGroup>
                 </div>
             </div>
             {selected&&
