@@ -21,7 +21,7 @@ export default function OrderPage() {
     let navigate = useNavigate();
 
     const handleTabs = (e:string) => {
-        navigate("/orders?status="+e)
+        navigate("/admin/orders?status="+e)
     }
   
 

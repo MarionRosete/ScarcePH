@@ -45,7 +45,7 @@ function Dashboard() {
     return (
         <div>
             <div className="m-6 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
-                <Link  to="/orders?status=pending" className="block">
+                <Link  to="/admin/orders?status=pending" className="block">
                     <SummaryCard
                         trendIcon={<></>}
                         title="Pending Orders"
@@ -56,7 +56,7 @@ function Dashboard() {
                         subtext={pending === 0 ? "All clear" : "Needs attention"}
                     />
                 </Link>
-                <Link  to="/orders?status=confirmed" className="block">
+                <Link  to="/admin/orders?status=confirmed" className="block">
                     <SummaryCard
                         trendIcon={<></>}
                         title="Outstanding Balance"
@@ -75,7 +75,7 @@ function Dashboard() {
                     value={
                         <p  
                             className="cursor-pointer"
-                            onClick={()=>navigate(`/orders?status=confirmed&range=this_week`)}
+                            onClick={()=>navigate(`/admin/orders?status=confirmed&range=this_week`)}
                         >
                            { weekly?.count}
                         </p>
@@ -83,7 +83,7 @@ function Dashboard() {
                     subtext={
                         <span 
                             className={cn(deltaColor(weekly?.delta),"cursor-pointer")}
-                            onClick={()=>navigate(`/orders?status=confirmed&range=last_week`)}
+                            onClick={()=>navigate(`/admin/orders?status=confirmed&range=last_week`)}
                         >
                             {weekly?.delta > 0 && "+"}{weekly?.delta||"Even"} vs last week
                         </span>
