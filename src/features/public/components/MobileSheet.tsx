@@ -10,7 +10,7 @@ import {
 import { useLogout } from "@/features/auth/hooks/useAuth"
 import { LogOut, Menu } from "lucide-react"
 
-export function MobileSheet() {
+export function MobileSheet({user}:{user:string}) {
   const {mutate:logout}= useLogout()
   return (
     <Sheet>
@@ -24,7 +24,9 @@ export function MobileSheet() {
         <SheetHeader>
             <img src="/image/ScarceLogo.PNG" className="w-24 object-fit" />
         </SheetHeader>
+       
         <div className="p-2 space-y-4">
+           <p>{user}</p>
             <p className="hover:bg-gray-600 pt-2 pb-2">Orders</p>
             <p className="hover:bg-gray-600 pt-2 pb-2">Shipping address</p>
         </div>

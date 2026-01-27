@@ -3,6 +3,8 @@ import type { PairObj, VariationObj } from "@/types/pair";
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { useAddToCart } from "@/features/cart/hooks/useCart";
+import { toast } from "sonner";
 
 
 type PairProps = {
@@ -12,6 +14,19 @@ type PairProps = {
 export default function PairInfo ({pair}:PairProps) {
     const [selected, setSelected] = useState<VariationObj|null>(null)
     const [carousel, setCarousel] = useState<string[]>([pair.image])
+
+    const {mutate:addToCart} = useAddToCart()
+
+    const handleAddtoCart = async () => {
+        if (!selected) {
+            return
+        }
+        const payload = {inventory_id:pair.id, variation_id:selected?.id}
+        await addToCart(payload, {
+            onSuccess:()=>toast.success('Added to cart'),
+            onError:()=>toast.error('Failed add to cart')
+        })
+    }
 
     useEffect(()=>{
         selected?.image?.length ? 
@@ -77,7 +92,10 @@ export default function PairInfo ({pair}:PairProps) {
                 
             }
             <div className="mt-9 flex justify-center space-x-5">
-                <Button disabled={!selected}>
+                <Button 
+                    disabled={!selected}
+                    onClick={handleAddtoCart}
+                >
                     Add to cart
                 </Button>
                 <Button disabled={!selected}>

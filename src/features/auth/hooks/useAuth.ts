@@ -40,10 +40,11 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: logoutRequest,
-    onSuccess: () => {
-      localStorage.removeItem("token");
-      queryClient.invalidateQueries({ queryKey: ["auth-check"] });
-      window.location.replace('/')
-    },
+      onSuccess: () => {
+        localStorage.removeItem("token");
+        queryClient.invalidateQueries({ queryKey: ["auth-check"] });
+        queryClient.invalidateQueries({ queryKey: ['get-cart'] })
+        window.location.replace('/')
+      },
   });
 }

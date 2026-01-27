@@ -1,6 +1,6 @@
-import { ShoppingCartIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import AuthModal from "../auth/pages/AuthModal";
+import { AppCart } from "../cart/AppCart";
 export function PublicHeader(){
     
     return(
@@ -21,9 +21,7 @@ export function PublicHeader(){
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <Button size='icon-sm' variant={'outline'}>
-                        <ShoppingCartIcon/>
-                    </Button>
+                    <AppCart/>
                     <AuthModal/>
                 </div>
             </div>

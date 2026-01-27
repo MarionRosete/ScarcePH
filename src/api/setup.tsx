@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+axios.defaults.withCredentials = true;
 
 
 const api = axios.create({

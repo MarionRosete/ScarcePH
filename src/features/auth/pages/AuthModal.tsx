@@ -4,8 +4,12 @@ import { toast } from "sonner";
 import AuthForm from "../components/AuthForm";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useQueryClient } from '@tanstack/react-query';
+
 
 export default function AuthModal() {
+    const queryClient = useQueryClient();
+
     const [open, setOpen] = useState<boolean>(false)
     const { mutate:Login, isPending:logging } = useLogin();
     const { mutate:Register, isPending:registering } = useRegister()
@@ -30,7 +34,7 @@ export default function AuthModal() {
                     isPending={logging}
                     onSubmit={(data) =>
                         Login(data, {
-                            onSuccess: () => setOpen(false),
+                            onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
                             onError: (err) => toast.error(err.message),
                         })
                     }
