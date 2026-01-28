@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+
 import {
   Popover,
   PopoverContent,
@@ -9,10 +8,10 @@ import {
 } from "@/components/ui/popover"
 import { ShoppingCart } from "lucide-react"
 import { useGetCart } from "./hooks/useCart"
+import { formatPeso } from "@/utils/dashboard"
 
 export function AppCart() {
-    const{data}=useGetCart()
-    console.log('data',data)
+  const{data}=useGetCart()
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -33,9 +32,15 @@ export function AppCart() {
       </PopoverTrigger>
       <PopoverContent className="w-80">
         {/* TBD */}
-       <div>
+       <p>
         MY CART
-       </div>
+       </p>
+        {data&&
+            data?.items.map((item)=>
+              <p> * {item.inventory_name}</p>
+            )
+        }
+        <p>Total: {formatPeso(data?.total||0)}</p>
       </PopoverContent>
     </Popover>
   )

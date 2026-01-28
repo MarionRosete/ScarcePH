@@ -24,7 +24,7 @@ export default function PairInfo ({pair}:PairProps) {
         const payload = {inventory_id:pair.id, variation_id:selected?.id}
         await addToCart(payload, {
             onSuccess:()=>toast.success('Added to cart'),
-            onError:()=>toast.error('Failed add to cart')
+            onError:(e)=>toast.error('Failed add to cart '+ e)
         })
     }
 

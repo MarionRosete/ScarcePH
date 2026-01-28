@@ -13,17 +13,22 @@ export const Header: React.FC = () => {
 
 
 
-  useEffect(() => {
+ useEffect(() => {
+    if (!isLoading) {
+      setDelay(false)
+      return
+    }
+
     const timer = setTimeout(() => setDelay(true), 3000)
     return () => clearTimeout(timer)
-  }, [])
+  }, [isLoading])
   
   if (isLoading) {
     return <LoadingScreen 
       msg={
         delay
-          ? "Server is waking up (free tier). Almost there…"
-          : "Checking authentication…"
+          ? "Establishing a secure connection…"
+          : "Getting things ready…"
       } 
     />
   }
