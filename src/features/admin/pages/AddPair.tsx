@@ -93,7 +93,8 @@ export function AddPair() {
               id: inventory.id,
               name: inventory.name,
               image: inventory.image,
-              variation:[createVariation()]
+              variation:[createVariation()],
+              description:inventory.description
             }}
           />
         )}
