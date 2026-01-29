@@ -31,6 +31,7 @@ type PairSummary = {
   name: string
   image: string,
   variation:VariationObj[]
+  description:string
 }
 
 export type VariationsProps = {

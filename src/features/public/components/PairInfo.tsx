@@ -40,6 +40,12 @@ export default function PairInfo ({pair}:PairProps) {
             <div className="shrink-0 flex justify-center py-2">
                <CarouselWithFullScreen images={carousel}/>
             </div>
+            <p className="text-center mb-2">
+                {pair.name}
+            </p>
+            <p className="text-muted-foreground text-left text-sm mb-3">
+                {pair.description}
+            </p>
            
             <div className="flex justify-center w-full items-center">
                  <p>Size:</p>

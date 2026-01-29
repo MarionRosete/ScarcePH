@@ -4,7 +4,7 @@ import { CreateVariation } from "@/api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 
-export const useVariations= (pair_id:number) => {
+export const useVariations= () => {
   const [vars, setVars] = useState<VariationObj[]>([createVariation()])
 
   const add = () =>
@@ -51,7 +51,7 @@ export const useVariations= (pair_id:number) => {
 
   const queryClient = useQueryClient()
 
-  const addVariationsMutation = useMutation({
+  const submitVariation = useMutation({
     mutationFn: ({
       pairId,
       variations,
@@ -66,16 +66,6 @@ export const useVariations= (pair_id:number) => {
     },
   })
 
-  const submit = () => {
-    const variations = buildVariationPayload(vars)
-    console.log('variations',variations);
-    
-
-    addVariationsMutation.mutate({
-      pairId:pair_id,
-      variations,
-    })
-  }
 
   const addVariations =(variations:VariationObj[]) => {
     setVars(variations)
@@ -83,5 +73,5 @@ export const useVariations= (pair_id:number) => {
     
 
 
-  return { vars, add, remove, toggle, update,submit,addVariations }
+  return { vars, add, remove, toggle, update,addVariations, submitVariation, buildVariationPayload }
 }

@@ -103,7 +103,9 @@ function InventoryItem({inv}:InventoryItemProps){
                         id: inv.id,
                         name: inv.name,
                         image: inv.image,
-                        variation: inv.variations
+                        variation: inv.variations,
+                        description: inv.description
+
                     }}
                 />
              </DialogContent>

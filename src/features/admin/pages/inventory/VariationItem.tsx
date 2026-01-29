@@ -32,7 +32,6 @@ type Props = {
 
 export function VariationItem({
   data,
-  index,
   onToggle,
   onRemove,
   onUpdate,
@@ -49,7 +48,7 @@ export function VariationItem({
         <div className="flex justify-between items-center">
           <CollapsibleTrigger asChild>
             <button className="flex items-center gap-2 text-xs font-medium">
-              Variation {index + 1} 
+              {data.condition||"N/A"}, {data.size? data.size + "us":"N/A"}
               <motion.span
                 animate={{ rotate: data.isOpen ? 180 : 0 }}
                 className="inline-flex"
@@ -57,7 +56,7 @@ export function VariationItem({
                 <ChevronDown className="h-4 w-4" />
               </motion.span>
               <Badge variant={variationBadge(data.status)}>
-              {data.status}
+              {data.status||"N/A"}
               </Badge>
             </button>
           </CollapsibleTrigger>
