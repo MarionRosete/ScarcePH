@@ -5,7 +5,7 @@ import { VariationItem } from "./VariationItem"
 import type { VariationsProps } from "@/features/admin/types/variations"
 import { useEffect, useState } from "react"
 import { useVariations } from "../../hooks/useVariations"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import CarouselWithFullScreen from "@/components/CarouselWithFullScreen"
 
 
 
@@ -31,28 +31,7 @@ export function Variations({pair}: VariationsProps){
 
 
         <div className="shrink-0 flex justify-center py-2">
-            <Carousel className="w-full max-w-[140px] md:max-w-[220px]">
-            <CarouselContent>
-                {carousel.map((img, index) => (
-                <CarouselItem key={index} className="flex justify-center">
-                    <div className="w-full aspect-square max-h-[160px] md:max-h-[260px] overflow-hidden flex items-center justify-center">
-                    <img
-                        src={img}
-                        alt="Preview"
-                        className="h-full w-full object-contain rounded-md"
-                    />
-                    </div>
-                </CarouselItem>
-                ))}
-            </CarouselContent>
-
-            {carousel.length > 1 && (
-                <>
-                <CarouselPrevious />
-                <CarouselNext />
-                </>
-            )}
-            </Carousel>
+            <CarouselWithFullScreen images={carousel}/>
         </div>
 
         <div className="flex justify-between items-center mb-4 px-3">
