@@ -47,7 +47,7 @@
 
 ### Database
 
-* PostgreSQL / MySQL
+* PostgreSQL
 
 ---
 
