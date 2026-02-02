@@ -30,17 +30,30 @@ export function AppCart() {
         </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
-        {/* TBD */}
-       <p>
-        MY CART
-       </p>
-        {data&&
-            data?.items.map((item)=>
+      <PopoverContent className="w-90 mr-5 mt-2">
+        {data?.items.length? (
+          <div className="space-y-5">
+            <p className="font-medium">
+              MY CART
+            </p>
+      
+            { data?.items.map((item)=>
               <p> * {item.inventory_name}</p>
-            )
+            )}
+            <div className="flex justify-between">
+              <p>Total: {formatPeso(data?.total||0)}</p>
+              <Button size={'sm'} variant={'outline'}>
+                Checkout
+              </Button>
+            </div>
+          </div>
+
+        ):(
+          <p>No Items in cart</p>
+        )
+            
         }
-        <p>Total: {formatPeso(data?.total||0)}</p>
+      
       </PopoverContent>
     </Popover>
   )

@@ -5,14 +5,14 @@ import type { OrderProps } from "@/features/admin/types/Order";
 import { OrderButtons } from "./ActionButton";
 
 
-export function OrderItem ({data}:OrderProps){    
+export function OrderItem ({status, item, data}:OrderProps){    
 
     
     return(
         <Card className="p-4 h-auto text-xs md:text-sm max-w-sm md:max-w-md">
             <div className="flex justify-between">
                     <Badge>
-                        {data.status.toLocaleUpperCase()}
+                        {status?.toLocaleUpperCase()}
                     </Badge>
                 <p className="text-xs">{new Date(data.created_at).toLocaleString()}</p>
             </div>
@@ -20,7 +20,7 @@ export function OrderItem ({data}:OrderProps){
                 <div className="w-1/2 flex justify-center">
                     <div className="w-1/2 h-1/2">
                         <img
-                            src={data.inventory.image}
+                            src={item.inventory.image}
                                 className="w-full rounded-sm object-fit"
                         />
                     </div>
@@ -58,19 +58,19 @@ export function OrderItem ({data}:OrderProps){
             <div className="flex">
                 <div className="w-1/2">
                     <p>
-                        {data.inventory.name}
+                        {item.inventory.name}
                     </p>
                     <p>
-                        Size: {data.variation.size} us
+                        Size: {item.variation.size} us
                     </p>
                     <p>
-                        Price: ₱{Math.abs(data.variation.price).toLocaleString()}
+                        Price: ₱{Math.abs(item.variation.price).toLocaleString()}
                     </p>         
                     <p>
-                        Spent: ₱{Math.abs(data.variation.spent).toLocaleString()}
+                        Spent: ₱{Math.abs(item.variation.spent).toLocaleString()}
                     </p>
                     <p>
-                        Profit: ₱{Math.abs(data.variation.price - data.variation.spent).toLocaleString()}
+                        Profit: ₱{Math.abs(item.variation.price - item.variation.spent).toLocaleString()}
                     </p>         
                 </div>
                 <div className="w-1/2 text-right">

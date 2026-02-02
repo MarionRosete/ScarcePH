@@ -36,15 +36,20 @@ export type OrderObj = {
     created_at:string
     status:string
     customer:CustomerObj
-    inventory: InventoryObj
-    variation: VariationObj
+
     payment: PaymentObj 
     shipment:ShipmentObj | undefined,
+    items:[]
 
 }
 
 export type OrderProps = {
-    data: OrderObj
+    status:string
+    item: {
+        inventory:InventoryObj,
+        variation:VariationObj
+    }
+    data:OrderObj
 }
 
 export type PresetDdateFilter =

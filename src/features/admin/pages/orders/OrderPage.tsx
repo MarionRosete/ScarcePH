@@ -39,6 +39,8 @@ export default function OrderPage() {
     });
    
 
+        console.log('data',data);
+        
  
     return (
         <div className="p-5 h-full flex flex-col">
@@ -85,7 +87,10 @@ export default function OrderPage() {
                         ) : (
                         data?.length?
                         data?.map((order: OrderObj) => (
-                            <OrderItem key={order.id} data={order} />
+                            order?.items?.map((item, key)=>
+                                <OrderItem key={key} item={item}  data={order} status={order.status}/>
+                            )
+                            
                         ))
                         :
                         <p className="text-md text-center col-span-3">
