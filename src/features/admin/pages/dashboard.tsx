@@ -10,6 +10,8 @@ import { Link } from "react-router";
 import { Trend } from "../component/Trend";
 import { cn } from "@/lib/utils"
 import { useNavigate } from 'react-router';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import ReviewPayment from "./ReviewPayments";
 
 
 function Dashboard() {
@@ -45,17 +47,22 @@ function Dashboard() {
     return (
         <div>
             <div className="m-6 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
-                <Link  to="/admin/orders?status=pending" className="block">
-                    <SummaryCard
-                        trendIcon={<></>}
-                        title="Pending Orders"
-                        icon={<ClockFadingIcon className="w-4 h-4" />}
-                        isLoading={isLoading}
-                        value={pending}
-                        valueClassName={pendingColor(pending)}
-                        subtext={pending === 0 ? "All clear" : "Needs attention"}
-                    />
-                </Link>
+                <Dialog >
+                    <DialogTrigger  className="cursor-pointer">  
+                        <SummaryCard
+                            trendIcon={<></>}
+                            title="Pending Orders"
+                            icon={<ClockFadingIcon className="w-4 h-4" />}
+                            isLoading={isLoading}
+                            value={pending}
+                            valueClassName={pendingColor(pending)}
+                            subtext={pending === 0 ? "All clear" : "Needs attention"}
+                        />
+                    </DialogTrigger>
+                    <DialogContent className="flex justify-center items-center max-h-[95%] overflow-hidden">
+                        <ReviewPayment/>
+                    </DialogContent>
+                </Dialog>
                 <Link  to="/admin/orders?status=confirmed" className="block">
                     <SummaryCard
                         trendIcon={<></>}

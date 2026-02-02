@@ -12,3 +12,9 @@ export function editPair(payload: EditPairParam) {
     payload
   );
 }
+
+export function getPendingApproval(){
+  return apiClient.get(
+    "/checkout/pending-approval"
+  )
+}
