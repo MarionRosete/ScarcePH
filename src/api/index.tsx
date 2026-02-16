@@ -1,12 +1,12 @@
 import { toast } from "sonner";
 import api from "./setup";
-import type { UpdateOrderParams, VariationParams } from "@/types/api";
-import type { CustomerObj } from "@/types/customer";
+import type { AddShipmentParams, UpdateOrderParams, VariationParams } from "@/features/admin/types/api";
+import type { CustomerObj } from "@/features/admin/types/customer";
 
 async function 
 LoginAPI(email: string, password: string) {
     try {
-        const response = await api.post("/login", {
+        const response = await api.post("/auth/login", {
             email,
             password,
         });
@@ -77,9 +77,26 @@ async function CreatePair(name:string, description:string, file: File|null){
 }
 
 async function CreateVariation(inventory_id:number, variations:VariationParams[]){
+    const formData = new FormData();
+    formData.append("inventory_id", String(inventory_id));
+
+    const cleanedVariations = variations.map((variation, index) => {
+        variation.files?.forEach((file) => {
+            formData.append(`images[${index}]`, file);
+        });
+
+        const { files, ...rest } = variation;
+        return rest;
+    });
+
+    formData.append("variations", JSON.stringify(cleanedVariations));
     
     try {
-        const response = await api.post('/inventory/create-variation',{inventory_id, variations})
+        const response = await api.post('/inventory/create-variation',formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
         if(response.data){
             toast.success(response.data.message)
         }
@@ -118,7 +135,7 @@ async function GetBestSeller(){
 
 async function GetCustomers(){
     try {
-        const response = await api.get('customer/get-all')
+        const response = await api.get('customer/get-all-from-messenger')
         return response.data.customers
     } catch (error) {
         toast.error(
@@ -154,7 +171,7 @@ async function GetAllAvailablePairs(){
     }
 }
 
-async function CreateOrder(payload:{customer_id:string, inventory_id:number, variation_id:number, status: string}){
+async function CreateOrder(payload:{customer_id:string, inventory_id:number, variation_id:number, status: string, received_amount:string}){
     try {
         const res = await api.post('save-order', payload)
         toast.success('Order created successfully')
@@ -179,6 +196,19 @@ async function ChangePassword(new_password:string, password:string ){
         throw error
     }
 }
+
+async function AddShipment(payload: AddShipmentParams){
+    try {
+        const res = await api.post('orders/add-shipment', payload)
+        toast.success('Shipment saved successfully')
+        return res.data
+    } catch (error) {
+        toast.error(
+            error instanceof Error ? error.message : "Failed to save shipment"
+        );
+        throw error
+    }
+}
 export { 
     LoginAPI, 
     CheckToken,
@@ -193,5 +223,6 @@ export {
     GetAllAvailablePairs,
     CreateCustomer,
     CreateOrder,
-    ChangePassword
+    ChangePassword,
+    AddShipment
 };
