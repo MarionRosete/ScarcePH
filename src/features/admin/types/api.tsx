@@ -21,3 +21,9 @@ export type UpdateOrderParams = {
   release:string|''
 }
 
+export type AddShipmentParams = {
+  order_id: number
+  carrier: string
+  tracking: string
+  status: "in_transit" | "delivered"
+}

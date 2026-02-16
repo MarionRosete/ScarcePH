@@ -6,12 +6,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateOrder, GetAllAvailablePairs } from "@/api";
 import type { InventoryObj } from "@/features/admin/types/Inventory";
 import type { CustomerObj } from "@/features/admin/types/customer";
+import { Input } from "@/components/ui/input";
 
 
 
 export default function SelectPair({customer}:{customer:CustomerObj}){
     const [selectedPair, setSelectedPair] = useState<InventoryObj | null>(null);
     const [selectedVariation, setSelectedVariation] = useState<number | null>(null);
+    const [funds, setFunds] = useState('');
     const {
         data,
         isLoading,
@@ -35,7 +37,8 @@ export default function SelectPair({customer}:{customer:CustomerObj}){
             customer_id: customer.id,
             inventory_id: selectedPair?.id!,
             variation_id: selectedVariation!,
-            status: 'pending'
+            status: 'pending',
+            received_amount:funds
         }
         addOrderMutation.mutate(payload)
     }
@@ -90,6 +93,10 @@ export default function SelectPair({customer}:{customer:CustomerObj}){
                             )} 
                         </SelectContent> 
                     </Select> 
+                    <Input
+                        placeholder="Amount received"
+                        onChange={(e)=>setFunds(e.target.value)}
+                    />
                 <Button size={'sm'} 
                     onClick={submit} 
                     disabled={!selectedPair||!selectedVariation||addOrderMutation.isPending}

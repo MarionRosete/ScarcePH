@@ -28,10 +28,11 @@ export default function ReviewPayment() {
 
   if (isLoading) return <Spinner />
 
+  
   return (
     <>
       <div className="flex justify-center py-6">
-        <Carousel className="w-[90%]">
+        <Carousel className="w-[80%]">
           <CarouselContent>
             {data?.map((intent: any) => (
               <CarouselItem key={intent.id}>
@@ -56,9 +57,11 @@ export default function ReviewPayment() {
                     </div>
 
                     {intent.items.map((item: any, i: number) => (
-                      <div key={i} className="flex justify-between text-sm border-b">
-                        <span>{item.inventory.name}</span>
-                        <span>x{item.qty}</span>
+                      <div key={i}>
+                        <p>{item.inventory.name}</p>
+                        <p>{item.inventory.variations[0].condition}</p>
+                        <p>₱{item.inventory.variations[0].price}</p>
+                       
                       </div>
                     ))}
 

@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { OrderProps } from "@/features/admin/types/Order";
 import { OrderButtons } from "./ActionButton";
+import { ShipmentDailog } from "./ShipmentDailog";
 
 
 export function OrderItem ({status, item, data}:OrderProps){    
@@ -42,15 +43,19 @@ export function OrderItem ({status, item, data}:OrderProps){
                     <p>
                         Balance: ₱{Math.abs(data?.payment?.to_settle).toLocaleString()||"PAID"}
                     </p>
-                    <p>
-                       {data?.shipment?.tracking?"Tracking:":""}
-                        <span className="underline cursor-pointer" onClick={()=>
+                    {data?.shipment?.tracking && (
+                      <p>
+                        Tracking:
+                        <span className="underline cursor-pointer ml-1" onClick={()=>
                             window.open("https://parcelsapp.com/en/tracking/"+data?.shipment?.tracking, 
                                 'popupName', 'width=600,height=600,resizable=yes,scrollbars=yes,status=yes')
                         }>
                             {data?.shipment?.tracking}
                         </span>
-                    </p>
+                      </p>
+                    )}
+                    <ShipmentDailog order_id={data.id} shipment={data?.shipment} />
+                   
                        
                     
                 </div>
@@ -95,4 +100,3 @@ export function OrderItem ({status, item, data}:OrderProps){
         </Card>
     )
 }
-

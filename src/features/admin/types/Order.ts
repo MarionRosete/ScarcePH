@@ -23,7 +23,7 @@ type PaymentObj = {
 
 }
 
-type ShipmentObj = {
+export type ShipmentObj = {
     tracking:string|undefined
     status:string|undefined
     carrier:string|undefined

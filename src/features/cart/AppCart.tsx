@@ -9,9 +9,28 @@ import {
 import { ShoppingCart } from "lucide-react"
 import { useGetCart } from "./hooks/useCart"
 import { formatPeso } from "@/utils/dashboard"
+import { useNavigate } from "react-router"
+import { useStartCheckout } from "@/features/checkout/hooks/useCheckout"
+import { toast } from "sonner"
 
 export function AppCart() {
   const{data}=useGetCart()
+  const navigate = useNavigate()
+  const startCheckout = useStartCheckout()
+
+  const handleCheckout = async () => {
+    try {
+      const session = await startCheckout.mutateAsync({ source: "cart" })
+      const checkoutSessionId = session?.checkout_session_id
+      if (!checkoutSessionId) {
+        toast.error("Unable to start checkout session.")
+        return
+      }
+      navigate(`/checkout?sessionId=${checkoutSessionId}`)
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to start checkout.")
+    }
+  }
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -42,9 +61,20 @@ export function AppCart() {
             )}
             <div className="flex justify-between">
               <p>Total: {formatPeso(data?.total||0)}</p>
-              <Button size={'sm'} variant={'outline'}>
-                Checkout
-              </Button>
+              {data?.items?.length ? (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleCheckout}
+                  disabled={startCheckout.isPending}
+                >
+                  Checkout
+                </Button>
+              ) : (
+                <Button size="sm" variant="outline" disabled>
+                  Checkout
+                </Button>
+              )}
             </div>
           </div>
 

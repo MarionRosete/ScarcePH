@@ -3,8 +3,10 @@ import type { PairObj, VariationObj } from "@/types/pair";
 import { useEffect, useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useAddToCart } from "@/features/cart/hooks/useCart";
+import { useStartCheckout } from "@/features/checkout/hooks/useCheckout";
 import { toast } from "sonner";
 import CarouselWithFullScreen from "@/components/CarouselWithFullScreen";
+import { useNavigate } from "react-router";
 
 
 type PairProps = {
@@ -16,6 +18,8 @@ export default function PairInfo ({pair}:PairProps) {
     const [carousel, setCarousel] = useState<string[]>([pair.image])
 
     const {mutate:addToCart} = useAddToCart()
+    const startCheckout = useStartCheckout()
+    const navigate = useNavigate()
 
     const handleAddtoCart = async () => {
         if (!selected) {
@@ -26,6 +30,31 @@ export default function PairInfo ({pair}:PairProps) {
             onSuccess:()=>toast.success('Added to cart'),
             onError:(e)=>toast.error('Failed add to cart '+ e)
         })
+    }
+
+    const handleCheckout = async () => {
+        if (!selected) {
+            return
+        }
+        try {
+            const session = await startCheckout.mutateAsync({
+                items: [
+                    {
+                        inventory_id: pair.id,
+                        variation_id: selected.id,
+                        qty: 1,
+                    },
+                ],
+            })
+            const checkoutSessionId = session?.checkout_session_id
+            if (!checkoutSessionId) {
+                toast.error("Unable to start checkout session.")
+                return
+            }
+            navigate(`/checkout?sessionId=${checkoutSessionId}`)
+        } catch (e: any) {
+            toast.error(e?.message || "Failed to start checkout.")
+        }
     }
 
     useEffect(()=>{
@@ -83,7 +112,7 @@ export default function PairInfo ({pair}:PairProps) {
                 >
                     Add to cart
                 </Button>
-                <Button disabled={!selected}>
+                <Button disabled={!selected || startCheckout.isPending} onClick={handleCheckout}>
                     Checkout
                 </Button>
             </div>
@@ -91,4 +120,3 @@ export default function PairInfo ({pair}:PairProps) {
         </div>
     )
 }
-

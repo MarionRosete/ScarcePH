@@ -8,6 +8,7 @@ import OrderPage from '@/features/admin/pages/orders/OrderPage';
 import ChangePass from '@/features/admin/pages/settings/ChangePass';
 import AdminLayout from '@/features/admin/AdminLayout';
 import { PairList } from '@/features/public/pages/PairList';
+import CheckoutPage from '@/features/checkout/pages/CheckoutPage';
 
 const PageNotFound = lazy(()=> import('@/features/admin/pages/notfound'));
 
@@ -19,6 +20,8 @@ export default function AppRoute() {
       <Route element={<Header/>}>
         <Route path="/" element={<PairList />} />
       </Route>
+      <Route path="/checkout" element={<CheckoutPage />} />
+
 
       
       <Route element={<AdminRoute />}>

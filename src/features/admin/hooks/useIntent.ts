@@ -18,9 +18,10 @@ export const useApprovePaymentIntent = () => {
 
   return useMutation({
     mutationFn: (id: string) =>
-      apiClient.post(`/payments/${id}/approve`),
+      apiClient.post(`/checkout/approve`,{id}),
     onSuccess: () => {
         qc.invalidateQueries({ queryKey: ["pending-approval"] })
+        qc.invalidateQueries({queryKey:['dashboard-summary']})
 
     }
   })
@@ -34,9 +35,10 @@ export const useRejectPaymentIntent = () => {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (id: string) =>
-      apiClient.post(`/payments/${id}/reject`),
+      apiClient.post(`/checkout/reject`, {id}),
     onSuccess: () => {
        qc.invalidateQueries({ queryKey: ["pending-approval"] })
+       qc.invalidateQueries({queryKey:['dashboard-summary']})
     },
   })
 }
